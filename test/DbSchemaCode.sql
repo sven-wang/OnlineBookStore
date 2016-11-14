@@ -44,7 +44,7 @@ CREATE TABLE Orders(
 );
 
 CREATE TABLE Items(
-	oid INTEGER,
+	  oid INTEGER,
     ISBN CHAR(13),
     copies INTEGER,
     PRIMARY KEY (oid, ISBN),

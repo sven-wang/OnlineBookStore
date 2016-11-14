@@ -3,7 +3,7 @@
 
 # config for Yujia- MySQL
 USERNAME = "root"
-PASSWORD = "jiu bu gao su ni"
+PASSWORD = "jiu bu gao su ni" #shuo de hao xiang ni gao su wo wo jiu neng connect to your local host shi de.
 SCHEMA = "mybookstore"
 
 # config for Siyuan- MySQL
@@ -12,9 +12,9 @@ SCHEMA = "mybookstore"
 # SCHEMA =
 
 # config for Jiuqi- MySQL
-# USERNAME =
-# PASSWORD =
-# SCHEMA =
+USERNAME = "root"
+PASSWORD = ""
+SCHEMA = "mybookstore"
 
 # config for Xianyue- MySQL
 # USERNAME =

@@ -1,0 +1,12 @@
+首先，在本地的MySQL数据库中建立一个数据库，取名为“mybookstore”（*），为它创建一个用户“testuser”（*），密码为“test623”（*），赋予它所有权限，向mybookstore导入DbSchemaCode.sql（方法百度）
+    “（*）”：可以在config.py内对应修改
+如果是一个新建的数据库，Customers表内没有内容，则需要手动添加一条tuple以供登录。可以在MySQL内用INSERT INTO...VALUES...手动添加一条；也可以在命令行中...MyBookStore/test/目录下依次执行:
+>>>set FLASK_APP=DbTest.py # mac下将set改为export
+>>>flask initdb
+在.../test/下依次执行
+>>>set FLASK_APP=DbTest.py # 若已经做过可跳过
+>>>flask run
+显示：
+ * Serving Flask app "test.DbTest"
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+则可将地址http://127.0.0.1:5000/复制到浏览器地址栏内打开

@@ -17,7 +17,7 @@ keywords = "algebra"
 subject = "Math"
 
 
-query = "UPDATE Books " \
-                "SET copies = copies + "+copies+" " \
-                "WHERE ISBN = '"+ISBN+"';"
+query = "SELECT * " \
+        "FROM Customers "\
+        "WHERE login_name = "+"'"+login_name+"';"
 print(query)

@@ -92,7 +92,12 @@ class dbOperation:
                 "FROM Books " \
                 "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
                 "' AND title = '"+title+" AND subject = '"+subject+"';"
-
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results;
+        except Exception as ex:
+            print ex.message
     #Function 9: Useful feedbacks
 
     #Function 10: Book recommendation

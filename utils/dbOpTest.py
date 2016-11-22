@@ -1,9 +1,15 @@
 sort_key = "id"
 table = "Customers"
+authors = "wsy"
+publisher = "wyj"
+title = "hahaha"
+subject = "sub"
 
-query = "SELECT "+sort_key+" " \
-                "FROM "+table+" " \
-                "ORDER BY "+sort_key+" DESC " \
-                "LIMIT 1"
+
+
+query = "SELECT * " \
+                "FROM Books " \
+                "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
+                "' AND title = '"+title+" AND subject = '"+subject+"' ;"
 
 print query

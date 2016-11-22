@@ -87,7 +87,11 @@ class dbOperation:
     #Function 7: Usefulness ratings
 
     #Function 8: Book Browsing
-    
+    def search(self, authors, publisher, title, subject):
+        query = "SELECT * " \
+                "FROM Books " \
+                "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
+                "' AND title = '"+title+" AND subject = '"+subject+"';"
 
     #Function 9: Useful feedbacks
 

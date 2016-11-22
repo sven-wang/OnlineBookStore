@@ -12,6 +12,7 @@
     </dl>
   </form>
   <h2>Submit</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ message }}{% endif %}
   <form action="/submit" method=post>
     <dl>
       <dt>User name:

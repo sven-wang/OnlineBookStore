@@ -69,6 +69,7 @@ def add_entry():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+    message = None
     if request.method == 'POST':
         if request.form['btn'] == 'Login':
             db = get_db()
@@ -83,6 +84,8 @@ def login():
         if request.form['btn'] == 'Create':
             db = dbOperation.dbOperation()
             db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
+            message = 'Create Successfully'
+            return redirect(url_for('login'), message=message)
     return render_template('login.html', error=error)
 
 @app.route('/submit', methods=['POST'])

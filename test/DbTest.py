@@ -6,7 +6,11 @@ import MySQLdb
 import config
 import dbconnect
 import dbOperation
+import sys
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 
@@ -69,7 +73,7 @@ def add_entry():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    message = None
+    #message = None
     if request.method == 'POST':
         if request.form['btn'] == 'Login':
             db = get_db()
@@ -79,31 +83,36 @@ def login():
                 error = 'Invalid'
             else:
                 session['logged_in'] = True
+                session['username'] = request.form['login_name']
+                # print session['username']
                 flash('You were logged in. BuyLah！')
                 return redirect(url_for('show_entries'))
         if request.form['btn'] == 'Create':
             db = dbOperation.dbOperation()
             db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
-            message = 'Create Successfully'
-            return redirect(url_for('login'), message=message)
+            #message = 'Create Successfully'
+            return redirect(url_for('login'))
     return render_template('login.html', error=error)
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    error = None
-    if request.method == 'POST':
-        db = get_db()
-        db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
-                'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
-                % (request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num']))
-    else:
-        error = 'Invalid'
+# @app.route('/submit', methods=['POST'])
+# def submit():
+#     error = None
+#     if request.method == 'POST':
+#         db = get_db()
+#         db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
+#                 'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
+#                 % (request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num']))
+#     else:
+#         error = 'Invalid'
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    entries = None
     if request.method == 'POST':
-        db = get_db()
-        pass
+        db = dbOperation.dbOperation()
+        entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'])
+        print entries
+    return render_template('search.html', entries=entries)
 
 
 @app.route('/logout')

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('search') }}" method=post class=add-entry>
+      <dl>
+        <dt>Author:
+        <dd><input type=text size=30 name=author>
+        <dt>Publisher:
+        <dd><input type=text size=30 name=publisher>
+        <dt>Title
+        <dd><input type=text size=30 name=title>
+        <dt>Subject
+        <dd><input type=text size=30 name=subject>
+        <dd><input type=submit name=btn value=search>
+      </dl>
+    </form>
+
+  {% endif %}
+
+{% endblock %}

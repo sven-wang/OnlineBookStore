@@ -1,23 +1,87 @@
-login_name = "login_name"
-full_name = "full_name"
-passwords = "passwords"
-card_num = "card_num"
-address = "address"
-phone_num = "phone_num"
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-ISBN = "ISBN"
-title = "title"
-authors = "authors"
-publisher = "publisher"
-year = "2015"
-copies = "5"
-price = "5.6"
-format = "hardcover"
-keywords = "algebra"
-subject = "Math"
+# all the imports
+import MySQLdb
+import config
+import dbconnect
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+
+app = Flask(__name__)
+
+app.config.from_object(__name__)
+app.config.update(dict(SECRET_KEY='development key'))
+
+def connect_db():
+    """Connects to the specific database."""
+    try:
+        db = MySQLdb.connect("localhost", config.USERNAME, config.PASSWORD, config.SCHEMA)
+        #print 'Connected Successfully'
+    except Exception as ex:
+        print 'Failed'
+        raise Exception("Fail to connect to database: "+ex.__str__())
+    return db
 
 
-query = "SELECT * " \
-        "FROM Customers "\
-        "WHERE login_name = "+"'"+login_name+"';"
-print(query)
+def get_db():
+    """Opens a new database connection if there is none yet for the
+    current application context.
+    """
+    if not hasattr(g, 'mysql_db'):
+        g.mysql_db = dbconnect.dbConnect()
+    return g.mysql_db
+
+@app.teardown_appcontext
+def close_db(error):
+    """Closes the database again at the end of the request."""
+    if hasattr(g, 'sqlite_db'):
+        g.sqlite_db.close()
+
+def init_db():
+    db = get_db()
+    db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
+                'VALUES ("1234", "1234", "1234", "1234", "1234", "1234")')
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the database."""
+    init_db()
+    print 'Initialized the database.'
+
+@app.route('/')
+def show_entries():
+    db = get_db()
+    entries = db.readDB('select login_name, passwords, card_num from Customers')
+    return render_template('show_entries.html', entries=entries)
+
+@app.route('/add', methods=['POST'])
+def add_entry():
+    if not session.get('logged_in'):
+        abort(401)
+    db = get_db()
+    db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
+                'VALUES (\'%s\', \'123456\', \'%s\', \'%s\', \'123456\', \'123456\')'
+                % (request.form['name'], request.form['pass'], request.form['card']))
+    flash('New Customers was successfully added')
+    return redirect(url_for('show_entries'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        db = get_db()
+        user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
+                         % (request.form['login_name'], request.form['passwords']))
+        if user[0][0] == 0L:
+            error = 'Invalid'
+        else:
+            session['logged_in'] = True
+            flash('You were logged in.BuyLah！')
+            return redirect(url_for('show_entries'))
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out.ByeLah！')
+    return redirect(url_for('show_entries'))

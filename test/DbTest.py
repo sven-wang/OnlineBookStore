@@ -5,6 +5,7 @@
 import MySQLdb
 import config
 import dbconnect
+import dbOperation
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 
 app = Flask(__name__)
@@ -69,16 +70,38 @@ def add_entry():
 def login():
     error = None
     if request.method == 'POST':
-        db = get_db()
-        user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
-                         % (request.form['login_name'], request.form['passwords']))
-        if user[0][0] == 0L:
-            error = 'Invalid'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in.BuyLah！')
-            return redirect(url_for('show_entries'))
+        if request.form['btn'] == 'Login':
+            db = get_db()
+            user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
+                             % (request.form['login_name'], request.form['passwords']))
+            if user[0][0] == 0L:
+                error = 'Invalid'
+            else:
+                session['logged_in'] = True
+                flash('You were logged in. BuyLah！')
+                return redirect(url_for('show_entries'))
+        if request.form['btn'] == 'Create':
+            db = dbOperation.dbOperation()
+            db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
     return render_template('login.html', error=error)
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    error = None
+    if request.method == 'POST':
+        db = get_db()
+        db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
+                'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
+                % (request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num']))
+    else:
+        error = 'Invalid'
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        db = get_db()
+        pass
+
 
 @app.route('/logout')
 def logout():

@@ -9,9 +9,10 @@
         <dd><textarea name=pass rows=5 cols=40></textarea>
         <dt>CardNum(should be unique Or you would receive an error):</dt>
         <dd><input type=text size=30 name=card>
-        <dd><input type=submit value=Share>
+        <dd><input type=submit name=btn value=Share>
       </dl>
     </form>
+
   {% endif %}
   <ul class=entries>
   {% for entry in entries %}

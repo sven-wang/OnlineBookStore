@@ -1,0 +1,78 @@
+<!doctype html>
+<head>
+<title>BuyLah</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style type=text/css>
+    a{ text-decoration:none;}
+    </style>
+</head>
+<body>
+<div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
+    <div style="margin:5px auto auto 5em;">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+    </div>
+    <div style="text-align: right;">
+        {% if not session.logged_in %}
+        <p style="margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
+        {% else %}
+        <p>Welcome back,{{ session.username}}!</p>
+        {% endif %}
+    </div>
+</div>
+  <!--{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}-->
+<h1 style="margin:4em auto auto auto;text-align:center;">Welcome!</h1>
+<div style="margin:1em auto 9em auto;width:51em;height:30em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <div style="float:left;width:25em;height:30em;border-right:3px solid #808080;">
+        <div>
+            <h2 style="text-align:center;">Login</h2>
+        </div>
+        <div style="text-indent:6em;margin-top:6em;">
+            <form action="{{ url_for('login') }}" method=post>
+                <dl>
+                  <dt>Username:</dt>
+                  <dt><input type=text name=login_name required></dt>
+                  <dt><br /></dt>
+                  <dt><br /></dt>
+                  <dt>Password:</dt>
+                  <dt><input type=password name=passwords required></dt>
+                  <dt><br /></dt>
+                  <dt><input type=submit name=btn value=Login style="width:50px;height:50px;margin-left:15em"></dt>
+                </dl>
+            </form>
+        </div>
+    </div>
+    <div style="float:left;width:25em;height:30em">
+        <div>
+            <h2 style="text-align:center;">Submit</h2>
+        </div>
+        <div style="text-indent:6em;">
+            <form action="{{ url_for('login') }}" method=post>
+                <dl >
+                  <dt>Username</dt>
+                  <dt><input type=text name=login_name required></dt>
+                  <dt><br /></dt>
+                  <dt>Full name</dt>
+                  <dt><input type=text name=full_name required></dt>
+                  <dt><br /></dt>
+                  <dt>Password</dt>
+                  <dt><input type=password name=passwords required></dt>
+                  <dt><br /></dt>
+                  <dt>Card number</dt>
+                  <dt><input type=text name=card_num required></dt>
+                  <dt><br /></dt>
+                  <dt>Address</dt>
+                  <dt><input type=text name=adtress required></dt>
+                  <dt><br /></dt>
+                  <dt>Phone number</dt>
+                  <dt><input type=text name=phone_num required></dt>
+                  <dt><br /></dt>
+                  <dt><input type=submit name=btn value=Create style="width:50px;height:50px;margin-left:15em;"></dt>
+                </dl>
+            </form>
+        </div>
+    </div>
+</div>
+<p style="text-align:right;margin-bottom:0">D@T@B@SE</p>
+</body>

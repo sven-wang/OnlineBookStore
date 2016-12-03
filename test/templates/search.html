@@ -1,20 +1,49 @@
-{% extends "layout.html" %}
-{% block body %}
-  {% if session.logged_in %}
-    <form action="{{ url_for('search') }}" method=post class=add-entry>
-      <dl>
-        <dt>Author:
-        <dd><input type=text size=30 name=author>
-        <dt>Publisher:
-        <dd><input type=text size=30 name=publisher>
-        <dt>Title
-        <dd><input type=text size=30 name=title>
-        <dt>Subject
-        <dd><input type=text size=30 name=subject>
-        <dd><input type=submit name=btn value=search>
-      </dl>
+<!doctype html>
+<head>
+<title>SearchLah</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style type=text/css>
+    a{ text-decoration:none;}
+    </style>
+</head>
+<body>
+<div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
+    <div style="margin:5px auto auto 5em;">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+    </div>
+    <div style="text-align: right;">
+        {% if not session.logged_in %}
+        <p style="margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
+        {% else %}
+        <p>Welcome back,{{ session.username}}!</p>
+        {% endif %}
+    </div>
+</div>
+<div style="margin-top:11em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    {% if session.logged_in %}
+    <form action="{{ url_for('search') }}" method=post>
+        <div style="margin-top:0.5em;margin-left:20px;">Author　 <input type="search" size="30%" name="author"></div>
+        <div style="margin-top:-1em;margin-left:50%;">Publisher<input type="search" size="30%" name="publisher"></div>
+        <input style="height:2em;margin-left:80%;margin-top:-2em;font-size:1.6em;" type="submit" name="btn" value="search">
+        <div style="margin-top:-1em;margin-left:20px;">Title　　<input type="search" size="30%" name="title"></div>
+        <div style="margin-top:-1em;margin-left:50%;">Subject　<input type="search" size="30%" name="subject"></div>
     </form>
-
-  {% endif %}
-
-{% endblock %}
+    {% else %}
+    <p>Please log in first!</p>
+    {% endif %}
+</div>
+<div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    {% if entries == None %}
+    <p>No records!</p>
+    {% else %}
+    <table border="1" style="text-align:center;">
+        <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+        {% for entry in entries %}
+        <tr><td>{{ entry[0] }}</td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
+        {% end for %}
+    </table>
+    {% endif %}
+</div>
+</body>

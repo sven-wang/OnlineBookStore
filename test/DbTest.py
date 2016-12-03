@@ -111,7 +111,7 @@ def search():
     if request.method == 'POST':
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'])
-        print entries
+        # print entries
     return render_template('search.html', entries=entries)
 
 
@@ -119,4 +119,4 @@ def search():
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out.ByeLah！')
-    return redirect(url_for('show_entries'))
+    return render_template('Logout.html')

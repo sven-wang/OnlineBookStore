@@ -17,7 +17,7 @@
         {% if not session.logged_in %}
         <p style="margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
         {% else %}
-        <p>Welcome back,{{ session.username}}!</p>
+        <p>Welcome back,{{ session.username}}!　　<a href="{{ url_for('logout') }}">log out</a></p>
         {% endif %}
     </div>
 </div>

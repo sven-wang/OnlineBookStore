@@ -89,15 +89,44 @@ class dbOperation:
     #Function 8: Book Browsing
     def search(self, authors, publisher, title, subject):
         query = "SELECT * " \
-                "FROM Books "\
-                "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
-                "' AND title = '"+title+" AND subject = '"+subject+"';"
+                "FROM Books"
+                # "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
+                # "' AND title = '"+title+" AND subject = '"+subject+"';"
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)
-            return results;
+            return results
         except Exception as ex:
             print ex.message
+
+    def searchISBN(self, ISBN):
+        query = "SELECT * " \
+                "FROM Books " \
+                "WHERE ISBN = " + "'" + ISBN + "';"
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message
+
+    def getFeedback(self, ISBN):
+        query = "SELECT * " \
+                "FROM Feedbacks " \
+                "WHERE ISBN = " + "'" + ISBN + "';"
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message
+
+    def userRecord_temp(self, login_name):
+        account_info = (('info','info1','info2','info3','info4'))
+        order_history = (('order','order1','order2','order3','order4'))
+        feedback_history = (('fb','fb1','fb2','fb3','fb4'))
+        feedback_rate = (('r','r1','r2','r3','r4'))
+        return account_info, order_history, feedback_history, feedback_rate
     #Function 9: Useful feedbacks
 
     #Function 10: Book recommendation

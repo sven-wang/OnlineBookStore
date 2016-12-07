@@ -39,10 +39,10 @@
     <p>No records!</p>
     {% else %}
     <table border="1" style="text-align:center;">
-        <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+        <tr><td>ISBN</td><td>entry[1]</td><td>entry[2]</td></tr>
         {% for entry in entries %}
-        <tr><td>{{ entry[0] }}</td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
-        {% end for %}
+        <tr><td><a href="{{ url_for('bookinfo', ISBN=entry[0]) }}">{{ entry[0] }}</a></td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
+        {% endfor %}
     </table>
     {% endif %}
 </div>

@@ -88,10 +88,12 @@ def login():
                 flash('You were logged in. BuyLah！')
                 return redirect(url_for('show_entries'))
         if request.form['btn'] == 'Create':
+            # print 123456789
             db = dbOperation.dbOperation()
             db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
             #message = 'Create Successfully'
             return redirect(url_for('login'))
+        return render_template('error.html')
     return render_template('HomePage.html', error=error)
 
 # @app.route('/submit', methods=['POST'])
@@ -111,12 +113,24 @@ def search():
     if request.method == 'POST':
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'])
-        # print entries
+        print 12345
     return render_template('search.html', entries=entries)
-
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out.ByeLah！')
     return render_template('Logout.html')
+
+@app.route('/bookinfo?=<string:ISBN>')
+def bookinfo(ISBN):
+    db = dbOperation.dbOperation()
+    info = db.searchISBN(ISBN)
+    feedback = db.getFeedback(ISBN)
+    return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)
+
+@app.route('/user?=<string:USERNAME>')
+def userpage(USERNAME):
+    db = dbOperation.dbOperation()
+    account_info, order_history, feedback_history, feedback_rate = db.userRecord_temp(USERNAME)
+    return render_template('Logout.html', A=account_info, O=order_history, H=feedback_history, R=feedback_rate)

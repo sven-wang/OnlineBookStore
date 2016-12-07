@@ -1,0 +1,13 @@
+<h1>{{ BookInfo[0] }}</h1>
+<h1>{{ BookInfo[1] }}</h1>
+<h1>{{ BookInfo[2] }}</h1>
+<h1>{{ BookInfo[3] }}</h1>
+<h1>{{ BookInfo[4] }}</h1>
+<h1>{{ BookInfo[5] }}</h1>
+
+    <table border="1" style="text-align:center;">
+        <tr><td>USERNAME</td><td>ISBN</td><td>entry[5]</td></tr>
+        {% for fb in FeedBack %}
+        <tr><td>{{ fb[0] }}</td><td>{{ fb[1] }}</td><td>{{ fb[4] }}</td></tr>
+        {% endfor %}
+    </table>

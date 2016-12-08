@@ -194,4 +194,8 @@ class dbOperation:
 
     #Function 10: Book recommendation
 
+    def getRecommendation(self, ISBN):
+        return
+
+
     #Function 11: Statistics

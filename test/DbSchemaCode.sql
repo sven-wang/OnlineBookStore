@@ -70,3 +70,5 @@ CREATE TABLE Managers(
     phone_num CHAR(20),
     PRIMARY KEY(login_name)
 );
+
+

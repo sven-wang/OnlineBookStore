@@ -24,6 +24,16 @@ class dbOperation:
             print ex.message
 
     #Function 2: Ordering
+    def getBookName(self, ISBN):
+        query = "SELECT title " \
+                "FROM Books " \
+                "WHERE ISBN = '" + ISBN + "';"
+        try:
+            db = dbconnect.dbConnect()
+            return db.readDB(query)
+        except Exception as ex:
+            print ex.message
+
     #def ordering(self, login_name, date, status):
 
 
@@ -104,6 +114,7 @@ class dbOperation:
 
     #Function 8: Book Browsing
     def search(self, authors, publisher, title, subject):
+        if
         query = "SELECT * " \
                 "FROM Books " \
                 "WHERE LOWER(authors) LIKE LOWER('%"+authors+"%') AND LOWER(publisher) LIKE LOWER('%"+publisher+ \

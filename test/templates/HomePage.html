@@ -13,13 +13,6 @@
     <div style="margin:5px auto auto 5em;">
         <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
     </div>
-    <div style="text-align: right;">
-        {% if not session.logged_in %}
-        <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
-        {% else %}
-        <p>Welcome back,{{ session.username}}!　　<a href="{{ url_for('logout') }}">log out</a></p>
-        {% endif %}
-    </div>
 </div>
 
   <!--{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}-->

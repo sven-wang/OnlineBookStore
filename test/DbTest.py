@@ -53,11 +53,11 @@ def initdb_command():
     init_db()
     print 'Initialized the database.'
 
-@app.route('/')
-def show_entries():
-    db = get_db()
-    entries = db.readDB('select login_name, passwords, card_num from Customers')
-    return render_template('show_entries.html', entries=entries)
+# @app.route('/')
+# def show_entries():
+#     db = get_db()
+#     entries = db.readDB('select login_name, passwords, card_num from Customers')
+#     return render_template('login.html', entries=entries)
 
 @app.route('/add', methods=['POST'])
 def add_entry():
@@ -70,7 +70,7 @@ def add_entry():
     flash('New Customers was successfully added')
     return redirect(url_for('show_entries'))
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     error = None
     #message = None
@@ -86,7 +86,7 @@ def login():
                 session['username'] = request.form['login_name']
                 # print session['username']
                 flash('You were logged in. BuyLah！')
-                return redirect(url_for('show_entries'))
+                return redirect(url_for('search'))
         if request.form['btn'] == 'Create':
             # print 123456789
             db = dbOperation.dbOperation()
@@ -133,4 +133,10 @@ def bookinfo(ISBN):
 def userpage(USERNAME):
     db = dbOperation.dbOperation()
     account_info, order_history, feedback_history, feedback_rate = db.userRecord_temp(USERNAME)
-    return render_template('Logout.html', A=account_info, O=order_history, H=feedback_history, R=feedback_rate)
+    return render_template('UserPage.html', A=account_info, O=order_history, H=feedback_history, R=feedback_rate)
+
+@app.route('/cart')
+def cart():
+
+    return render_template('Cart.html')
+

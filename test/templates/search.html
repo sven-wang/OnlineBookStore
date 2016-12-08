@@ -15,9 +15,9 @@
     </div>
     <div style="text-align: right;">
         {% if not session.logged_in %}
-        <p style="margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
+        <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
         {% else %}
-        <p>Welcome back,{{ session.username}}!</p>
+        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
         {% endif %}
     </div>
 </div>

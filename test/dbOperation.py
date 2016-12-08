@@ -114,7 +114,7 @@ class dbOperation:
 
     #Function 8: Book Browsing
     def search(self, authors, publisher, title, subject):
-        if
+        # if
         query = "SELECT * " \
                 "FROM Books " \
                 "WHERE LOWER(authors) LIKE LOWER('%"+authors+"%') AND LOWER(publisher) LIKE LOWER('%"+publisher+ \

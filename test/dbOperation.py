@@ -114,11 +114,52 @@ class dbOperation:
 
     #Function 8: Book Browsing
     def search(self, authors, publisher, title, subject):
-        # if
+        authors = authors.strip()
+        publisher = publisher.strip()
+        title = title.strip()
+        subject = subject.strip()
+
         query = "SELECT * " \
-                "FROM Books " \
-                "WHERE LOWER(authors) LIKE LOWER('%"+authors+"%') AND LOWER(publisher) LIKE LOWER('%"+publisher+ \
-                "%') AND LOWER(title) LIKE LOWER('%"+title+"%') AND LOWER(subject) LIKE LOWER('%"+subject+"%');"
+                "FROM Books" \
+
+        if (authors != ''):
+            query += " WHERE LOWER(authors) LIKE LOWER('%" + authors + "%')"
+            if (publisher != ''):
+                query +=  " AND LOWER(publisher) LIKE LOWER('%" + publisher + "%')"
+                if (title != ''):
+                    query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+                else:
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+            else:
+                if (title != ''):
+                    query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+                else:
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+        else:
+            if (publisher != ''):
+                query +=  " WHERE LOWER(publisher) LIKE LOWER('%"+publisher+"%')"
+                if (title != ''):
+                    query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+                else:
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+            else:
+                if (title != ''):
+                    query += " WHERE LOWER(title) LIKE LOWER('%" + title + "%')"
+                    if (subject != ''):
+                        query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+                else:
+                    if (subject != ''):
+                        query += " WHERE LOWER(subject) LIKE LOWER('%" + subject + "%')"
+
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)

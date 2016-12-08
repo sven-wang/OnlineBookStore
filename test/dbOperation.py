@@ -3,10 +3,10 @@ import dbconnect
 class dbOperation:
     #Basic queries
     def get_max(self, table, sort_key):
-        query = "SELECT "+sort_key+" " \
-                "FROM "+table+" " \
-                "ORDER BY "+sort_key+" DESC " \
-                "LIMIT 1"
+        query = "SELECT " + sort_key + " " \
+                "FROM " + table + " " \
+                "ORDER BY " + sort_key + " DESC " \
+                "LIMIT 1;"
         try:
             db = dbconnect.dbConnect()
             return db.readDB(query)
@@ -37,8 +37,8 @@ class dbOperation:
 
         # his/her full history of orders
         query2 = "SELECT * " \
-                  "FROM Orders " \
-                  "WHERE login_name = " + "'" + login_name + "';"
+                 "FROM Orders " \
+                 "WHERE login_name = " + "'" + login_name + "';"
 
         # his/her full history of feedbacks
         query3 = "SELECT * " \
@@ -56,6 +56,7 @@ class dbOperation:
             order_history = db.readDB(query2)
             feedback_history = db.readDB(query3)
             feedback_rate = db.readDB(query4)
+            return account_info, order_history, feedback_history, feedback_rate
         except Exception as ex:
             print ex.message
 
@@ -82,16 +83,31 @@ class dbOperation:
             print ex.message
 
     #Function 6: Feedback recordings
-
+    def feedBack(self, login_name, ISBN, dateTime, score, text):
+        query = "INSERT INTO Feedbacks " \
+                "VALUES ('"+login_name+"', '"+ISBN+"', '"+dateTime+"', '"+score+"', "+text+"');"
+        try:
+            db = dbconnect.dbConnect()
+            db.insertDB(query)
+        except Exception as ex:
+            print ex.message
 
     #Function 7: Usefulness ratings
+    def rate(self, rater_name, feedback_name, ISBN, usefulness):
+        query = "INSERT INTO Feedbacks " \
+                "VALUES ('"+rater_name+"', '"+feedback_name+"', '"+ISBN+"', '"+usefulness+"');"
+        try:
+            db = dbconnect.dbConnect()
+            db.insertDB(query)
+        except Exception as ex:
+            print ex.message
 
     #Function 8: Book Browsing
     def search(self, authors, publisher, title, subject):
         query = "SELECT * " \
-                "FROM Books"
-                # "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
-                # "' AND title = '"+title+" AND subject = '"+subject+"';"
+                "FROM Books " \
+                "WHERE LOWER(authors) LIKE LOWER('%"+authors+"%') AND LOWER(publisher) LIKE LOWER('%"+publisher+ \
+                "%') AND LOWER(title) LIKE LOWER('%"+title+"%') AND LOWER(subject) LIKE LOWER('%"+subject+"%');"
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)
@@ -110,24 +126,19 @@ class dbOperation:
         except Exception as ex:
             print ex.message
 
-    def getFeedback(self, ISBN):
-        query = "SELECT * " \
-                "FROM Feedbacks " \
-                "WHERE ISBN = " + "'" + ISBN + "';"
+    #Function 9: Useful feedbacks
+    def feedBackRank(self, ISBN, n):
+        query = "SELECT AVR(usefulness) " \
+                "FROM Rate " \
+                "GROUP BY " + "'" + ISBN + "'" + \
+                "ORDER BY AVR(usefulness)" + " DESC " \
+                "LIMIT " + str(n) + ";"
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)
             return results
         except Exception as ex:
             print ex.message
-
-    def userRecord_temp(self, login_name):
-        account_info = (('info','info1','info2','info3','info4'))
-        order_history = (('order','order1','order2','order3','order4'))
-        feedback_history = (('fb','fb1','fb2','fb3','fb4'))
-        feedback_rate = (('r','r1','r2','r3','r4'))
-        return account_info, order_history, feedback_history, feedback_rate
-    #Function 9: Useful feedbacks
 
     #Function 10: Book recommendation
 

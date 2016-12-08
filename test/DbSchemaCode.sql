@@ -36,7 +36,6 @@ CREATE TABLE Feedbacks(
 CREATE TABLE Orders(
     oid INTEGER,
     login_name CHAR(50),
-    copies INTEGER,
     date DATE,
     status CHAR(20),
     PRIMARY KEY (oid),

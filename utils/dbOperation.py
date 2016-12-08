@@ -56,6 +56,7 @@ class dbOperation:
             order_history = db.readDB(query2)
             feedback_history = db.readDB(query3)
             feedback_rate = db.readDB(query4)
+
         except Exception as ex:
             print ex.message
 
@@ -90,13 +91,15 @@ class dbOperation:
     def search(self, authors, publisher, title, subject):
         query = "SELECT * " \
                 "FROM Books " \
-                "WHERE authors = " + "'"+authors+"' AND publisher = '"+publisher+ \
-                "' AND title = '"+title+" AND subject = '"+subject+"';"
+                "WHERE LOWER(authors) LIKE LOWER('%"+authors+"%') AND LOWER(publisher) LIKE LOWER('%"+publisher+ \
+                "%') AND LOWER(title) LIKE LOWER('%"+title+"%') AND LOWER(subject) LIKE LOWER('%"+subject+"%');"
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)
             return results;
         except Exception as ex:
+
+
             print ex.message
     #Function 9: Useful feedbacks
 

@@ -195,7 +195,29 @@ class dbOperation:
     #Function 10: Book recommendation
 
     def getRecommendation(self, ISBN):
-        return
+        query = "SELECT ISBN, sum(copies) \
+                FROM Orders, Items \
+                WHERE Orders.oid = Items.oid \
+                AND ISBN in (SELECT distinct ISBN \
+                             FROM (SELECT distinct login_name \
+                                    FROM Orders, Items \
+                                    WHERE Orders.oid = Items.oid  \
+                                    WHERE ISBN = '" + ISBN + "') C, Orders O, Items I \
+                               WHERE c.login_name = o.login_name \
+                                AND O.oid = I.oid) \
+                AND Orders.login_name in (SELECT distinct login_name \
+                                            FROM Orders, Items \
+                                            WHERE Orders.oid = Items.oid  \
+                                            WHERE ISBN = '" + ISBN + "') \
+                GROUP BY ISBN \
+                ORDER BY sum(copies) DESC"
+
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message
 
 
     #Function 11: Statistics

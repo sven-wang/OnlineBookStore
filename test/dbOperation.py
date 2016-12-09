@@ -169,8 +169,8 @@ class dbOperation:
         title = title.strip()
         subject = subject.strip()
 
-        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score) \
-                  FROM Books natural join Feedbacks"
+        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)\
+                  FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN"
 
         if (authors != ''):
             query += " WHERE LOWER(authors) LIKE LOWER('%" + authors + "%')"

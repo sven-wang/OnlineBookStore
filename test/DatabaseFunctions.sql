@@ -159,14 +159,15 @@ VALUES (rater_name, feedback_name, ISBN, usefulness);
 
 ## 8) Book Browsing
 SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)
-                  FROM Books natural join Feedbacks
+FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN
 WHERE LOWER(authors) LIKE LOWER("%author%") AND
       LOWER(publisher) LIKE LOWER("%publisher%") AND
       LOWER(title) LIKE LOWER("%title%") AND
       LOWER(subject) LIKE LOWER("%subject%")
 GROUP BY Books.ISBN
 #ORDER BY year DESC
-ORDER BY AVG(score)
+ORDER BY AVG(score) DESC
+
 
 ## 9) Useful feedbacks
 SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks

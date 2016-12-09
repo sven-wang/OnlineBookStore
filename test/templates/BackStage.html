@@ -1,0 +1,69 @@
+<!doctype html>
+<head>
+<title>BackLah</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <style type=text/css>
+    a{ text-decoration:none;}
+    </style>
+</head>
+<div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
+    <div style="margin:5px auto auto 5em;">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+    </div>
+    <div style="text-align: right;">
+        {% if not session.manager_logged_in %}
+        {% else %}
+        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{ url_for('logout') }}">log out</a></p>
+        {% endif %}
+    </div>
+</div>
+<div style="margin-top:11em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    {% if session.manager_logged_in %}
+    <form action="{{ url_for('backstage') }}" method=post>
+        <div style="margin-top:0.5em;margin-left:20px;">ISBN　 <input type="search" size="30%" name="isbn"></div>
+        <div style="margin-top:-1em;margin-left:50%;">Copies<input type="search" size="30%" name="copies"></div>
+        <input style="height:2em;margin-left:80%;margin-top:-2em;font-size:1.6em;" type="submit" name="btn" value="Submit">
+    </form>
+    <div style="text-align:center;width:150px;line-height:2em;background-color:#e5e5e5;"><a href="{{ url_for('newbook') }}">Add new books!</a></div>
+    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+        {% if books == None %}
+        <p>No records!</p>
+        {% else %}
+        <table border="1" style="text-align:center;">
+            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            {% for b in books %}
+            <tr><td>{{ b[0] }}</td><td>{{ b[1] }}</td><td>{{ b[2] }}</td></tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+        {% if authors == None %}
+        <p>No records!</p>
+        {% else %}
+        <table border="1" style="text-align:center;">
+            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            {% for a in authors %}
+            <tr><td>{{ a[0] }}</td><td>{{ a[1] }}</td><td>{{ a[2] }}</td></tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+        {% if publishers == None %}
+        <p>No records!</p>
+        {% else %}
+        <table border="1" style="text-align:center;">
+            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            {% for p in publishers %}
+            <tr><td>{{ p[0] }}</td><td>{{ p[1] }}</td><td>{{ p[2] }}</td></tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>Please log in first!</p>
+    {% endif %}
+</div>

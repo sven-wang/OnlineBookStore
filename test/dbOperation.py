@@ -142,8 +142,8 @@ class dbOperation:
     #Function 6: Feedback recordings
     def feedBack(self, login_name, ISBN, score, text):
         query = "INSERT INTO Feedbacks " \
-                "VALUES ('"+login_name+"', '"+ISBN+"', CURDATE()) , '"+score+"', "+text+"');"
-        insertRate = "INSERT INTO Rate VALUES ('Nobody', " + login_name + ", '"+ISBN+"', 0 )"
+                "VALUES ('"+login_name+"', '"+ISBN+"', CURDATE() , "+score+", '"+text+"');"
+        insertRate = "INSERT INTO Rate VALUES ('"+ login_name +"', '" + login_name + "', '"+ISBN+"', 0 )"
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)
@@ -163,14 +163,14 @@ class dbOperation:
             print ex.message
 
     #Function 8: Book Browsing
-    def search(self, authors, publisher, title, subject):
+    def search(self, authors, publisher, title, subject, sortBy, Desc_Asc):
         authors = authors.strip()
         publisher = publisher.strip()
         title = title.strip()
         subject = subject.strip()
 
-        query = "SELECT * " \
-                "FROM Books" \
+        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score) \
+                  FROM Books natural join Feedbacks"
 
         if (authors != ''):
             query += " WHERE LOWER(authors) LIKE LOWER('%" + authors + "%')"
@@ -209,6 +209,17 @@ class dbOperation:
                 else:
                     if (subject != ''):
                         query += " WHERE LOWER(subject) LIKE LOWER('%" + subject + "%')"
+
+        if sortBy == 'year':
+            query += " ORDER BY year"
+            if Desc_Asc == 'd':
+                query += " Desc"
+        elif sortBy == 'score':
+            query += " ORDER BY score"
+            if Desc_Asc == 'd':
+                query += ' Desc'
+        else:
+            pass
 
         try:
             db = dbconnect.dbConnect()

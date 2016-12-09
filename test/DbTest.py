@@ -53,22 +53,16 @@ def initdb_command():
     init_db()
     print 'Initialized the database.'
 
-# @app.route('/')
-# def show_entries():
+# @app.route('/add', methods=['POST'])
+# def add_entry():
+#     if not session.get('logged_in'):
+#         abort(401)
 #     db = get_db()
-#     entries = db.readDB('select login_name, passwords, card_num from Customers')
-#     return render_template('login.html', entries=entries)
-
-@app.route('/add', methods=['POST'])
-def add_entry():
-    if not session.get('logged_in'):
-        abort(401)
-    db = get_db()
-    db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
-                'VALUES (\'%s\', \'123456\', \'%s\', \'%s\', \'123456\', \'123456\')'
-                % (request.form['name'], request.form['pass'], request.form['card']))
-    flash('New Customers was successfully added')
-    return redirect(url_for('show_entries'))
+#     db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
+#                 'VALUES (\'%s\', \'123456\', \'%s\', \'%s\', \'123456\', \'123456\')'
+#                 % (request.form['name'], request.form['pass'], request.form['card']))
+#     flash('New Customers was successfully added')
+#     return redirect(url_for('show_entries'))
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -96,17 +90,6 @@ def login():
         return render_template('error.html')
     return render_template('HomePage.html', error=error)
 
-# @app.route('/submit', methods=['POST'])
-# def submit():
-#     error = None
-#     if request.method == 'POST':
-#         db = get_db()
-#         db.insertDB('INSERT INTO Customers(login_name, full_name, passwords, card_num, address, phone_num) '
-#                 'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\')'
-#                 % (request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num']))
-#     else:
-#         error = 'Invalid'
-
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     entries = None
@@ -114,7 +97,7 @@ def search():
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'])
         print 12345
-    return render_template('search.html', entries=entries)
+    return render_template('Search.html', entries=entries)
 
 @app.route('/logout')
 def logout():
@@ -122,21 +105,77 @@ def logout():
     flash('You were logged out.ByeLah！')
     return render_template('Logout.html')
 
-@app.route('/bookinfo?=<string:ISBN>')
+@app.route('/bookinfo?=<string:ISBN>', methods=['GET', 'POST'])
 def bookinfo(ISBN):
+    nfeedback = 5
     db = dbOperation.dbOperation()
     info = db.searchISBN(ISBN)
-    feedback = db.getFeedback(ISBN)
+    feedback = db.feedBackRank(ISBN, nfeedback)
+    if feedback == None:
+        feedback = []
+    if request.method == 'POST':
+        if request.form['btn'] == 'add':
+            pass
+            return redirect(url_for('bookinfo', ISBN=ISBN))
+        elif request.form['btn'] == 'fb':
+            db = dbOperation.dbOperation()
+            db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
+            return redirect(url_for('bookinfo', ISBN=ISBN))
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)
 
 @app.route('/user?=<string:USERNAME>')
 def userpage(USERNAME):
     db = dbOperation.dbOperation()
-    account_info, order_history, feedback_history, feedback_rate = db.userRecord_temp(USERNAME)
+    account_info, order_history, feedback_history, feedback_rate = db.userRecord(USERNAME)
+    print account_info
+    print order_history
+    print feedback_history
+    print feedback_rate
+    if order_history == None:
+        order_history = []
+    if feedback_history == None:
+        feedback_history = []
+    if feedback_rate == None:
+        feedback_rate = []
     return render_template('UserPage.html', A=account_info, O=order_history, H=feedback_history, R=feedback_rate)
 
 @app.route('/cart')
 def cart():
 
     return render_template('Cart.html')
+
+@app.route('/manager', methods=['GET', 'POST'])
+def manager():
+    if request.method == 'POST':
+        if request.form['btn'] == 'login':
+            db = get_db()
+            user = db.readDB('select count(*) from Managers where login_name = \'%s\' and passwords = \'%s\''
+                             % (request.form['managername'], request.form['password']))
+            if user[0][0] == 0L:
+                error = 'Invalid'
+            else:
+                session['manager_logged_in'] = True
+                session['managername'] = request.form['managername']
+                # print session['username']
+                flash('You were logged in. ManaLah！')
+                return redirect(url_for('backstage'))
+    return render_template('Manager.html')
+
+
+@app.route('/backstage', methods=['GET', 'POST'])
+def backstage(m=5):
+    db = dbOperation.dbOperation()
+    books = db.popularBooks(m)
+    authors = db.popularAuthors(m)
+    publishers = db.popularPublishers(m)
+    if request.method == 'POST':
+        db.newArrival(request.form['isbn'], request.form['copies'])
+    return render_template('BackStage.html', books=books, authors=authors, publishers=publishers)
+
+@app.route('/newbook', methods=['GET', 'POST'])
+def newbook():
+    db = dbOperation.dbOperation()
+    if request.method == 'POST':
+        db.newBook(request.form['isbn'], request.form['title'], request.form['authors'], request.form['publisher'], request.form['year'], request.form['copies'], request.form['price'], request.form['format'], request.form['keywords'], request.form['subject'])
+    return render_template('NewBook.html')
 

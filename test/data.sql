@@ -3,11 +3,12 @@ insert into Books values ('9781594487712','Where Good Ideas Come From: The Natur
 insert into Books values ('9780321474049','The Digital Photography Book','Scott Kelby','Peachpit Press',2006,1,'100','softcover','photography','Art');
 insert into Books values ('9780684801520','The Great Gatsby','F. Scott Fitzgerald','Scribner',1995,1,'100','hardcover','Gatsby','Biography');
 insert into Books values ('9780803612259','Davis s Drug Guide For Nurses (book With Cd-rom) And Mednotes: Nurse s Pocket Pharmacology Guide','Judith Hopfer Deglin, April Hazard Vallerand','F. A. Davis Company',2004,1,'100','hardcover','Pharmacology','Education');
+
 insert into Books values ('9781111529024','Microsoft Office 2007: Introductory Concepts and Techniques, Premium Video Edition (Book Only)','Gary B. Shelly, Thomas J. Cashman, Misty E. Vermaat','Course Technology',2010,1,'100','softcover','Microsoft Office','Technology');
 insert into Books values ('9780262513593','The Future of Learning Institutions in a Digital Age (John D. and Catherine T. MacArthur Foundation Reports on Digital Media and Learning)','Cathy N. Davidson, David Theo Goldberg','The MIT Press ',2009,1,'100','softcover','Learning Institutions in digital age','Education');
 insert into Books values ('9780470547816','The New Rules of Marketing and PR: How to Use Social Media, Blogs, News Releases, Online Video, and Viral Marketing to Reach Buyers Directly, 2nd Edition','David Meerman Scott','Wiley',2010,1,'100','softcover','Marketing','Social');
 insert into Books values ('9780321344755','Dont Make Me Think: A Common Sense Approach to Web Usability, 2nd Edition','Steve Krug','New Riders Press',2005,1,'100','paperback','Web Usability','Technology');
-insert into Books values ('9780393072228','The Shallows: What the Internet Is Doing to Our Brains','hardcover','Nicholas Carr','W. W. Norton & Company ',2010,1,'100','hardcover','Internet','Technology');
+insert into Books values ('9780393072228','The Shallows: What the Internet Is Doing to Our Brains','Nicholas Carr','W. W. Norton & Company ',2010,1,'100','hardcover','Internet','Technology');
 insert into Books values ('9780071701334','CompTIA A+ Certification All-in-One Exam Guide, Seventh Edition (Exams 220-701 & 220-702)','Michael Meyers','McGraw-Hill Osborne Media',2010,1,'100','hardcover','Exam Guide','Education');
 insert into Books values ('9781412971027','Statistics for People Who (Think They) Hate Statistics: Excel 2007 Edition',NULL,'Sage Publications, Inc',2009,1,'100','softcover','Statistics','Education');
 insert into Books values ('9780470523988','Windows 7 For Dummies Book + DVD Bundle','Andy Rathbone','For Dummies',2009,1,'100','softcover','Windows 7','Technology');
@@ -30,7 +31,7 @@ insert into Books values ('9780538469685','Database Systems: Design, Implementat
 insert into Books values ('9781423905899','New Perspectives on Microsoft Office Access 2007, Comprehensive','Joseph J. Adamski, Kathy T. Finnegan','Course Technology',2007,1,'100','softcover','Microsoft Office','Technology');
 insert into Books values ('9780136086208','Fundamentals of Database Systems (6th Edition) (Alternative eText Formats)','Ramez Elmasri, Shamkant Navathe','Addison Wesley',2010,1,'100','hardcover','Database System','Technology');
 insert into Books values ('9781423905875','New Perspectives on Microsoft Office Access 2007, Brief (New Perspectives Series)','Joseph J. Adamski, Kathy T. Finnegan','Course Technology',2007,1,'100','softcover','Microsoft Office','Technology');
-insert into Books values ('9781423901471','Concepts of Database Management (Sam 2007 Compatible Products)',2007,1,'100','softcover','Database System','Technology');
+insert into Books values ('9781423901471','Concepts of Database Management (Sam 2007 Compatible Products)','Pratt, Adamski','TBS (2007)',2007,1,'100','softcover','Database System','Technology');
 insert into Books values ('9781418843410','Microsoft Office Access 2007: Comprehensive Concepts and Techniques (Shelly Cashman)','Gary B. Shelly, Thomas J. Cashman, Philip J. Pratt, Mary Z. Last','Course Technology',2007,1,'100','softcover','Microsoft Office','Technology');
 insert into Books values ('9780072465631','Database Management Systems','Raghu Ramakrishnan, Johannes Gehrke','McGraw-Hill Science/Engineering/Math',2002,1,'100','hardcover','Database Management System','Technology');
 insert into Books values ('9781449389734','Hadoop: The Definitive Guide','Tom White','Yahoo Press',2010,1,'100','softcover','Guide','Education');
@@ -39,7 +40,7 @@ insert into Books values ('9780123744937','Computer Organization and Design, Fou
 insert into Books values ('9780136079675','Computer Networking: A Top-Down Approach (5th Edition)','James F. Kurose, Keith W. Ross','Addison Wesley',2009,1,'100','hardcover','Computer Network','Technology');
 insert into Books values ('9780071602174','CISSP All-in-One Exam Guide, Fifth Edition','Shon Harris','McGraw-Hill Osborne Media',2010,1,'100','hardcover','Exam Guide','Education');
 insert into Books values ('9781423902454','Network+ Guide to Networks (Networking (Course Technology))','Tamara Dean','Course Technology',2009,1,'100','softcover','Network','Technology');
-insert into Books values ('9781587201837','CCNA Official Exam Certification Library (Exam 640-802), Third Edition (Containing ICND1 and ICND2 Second Edition Exam Certification Guides)','Wendell Odom','Cisco Press',2007,1,'100''hardcover','Exam Certification','Education');
+insert into Books values ('9781587201837','CCNA Official Exam Certification Library (Exam 640-802), Third Edition (Containing ICND1 and ICND2 Second Edition Exam Certification Guides)','Wendell Odom','Cisco Press',2007,1,'100','hardcover','Exam Certification','Education');
 insert into Books values ('9781428340664','Security+ Guide to Network Security Fundamentals','Mark Ciampa','Course Technology',2008,1,'100','softcover','Network Security','Technology');
 insert into Books values ('9781587132087','Network Fundamentals, CCNA Exploration Companion Guide','Mark Dye, Rick McDonald, Antoon Rufi','Cisco Press ',2007,1,'100','hardcover','Network Fundamentals','Technology');
 insert into Books values ('9781435498839','Guide to Computer Forensics and Investigations','Bill Nelson, Amelia Phillips, Christopher Steuart','Course Technology',2009,1,'100','softcover','Computer Forensics and Investigations','Technology');
@@ -49,35 +50,42 @@ insert into Books values ('9780470110089','CCNA: Cisco Certified Network Associa
 insert into Books values ('9780735627086','MCTS Self-Paced Training Kit (Exam 70-680): Configuring Windows 7','Ian McLean, Orin Thomas','Microsoft Press',2009,1,'100','hardcover','Training Kit','Education');
 insert into Books values ('9780470128725','Operating System Concepts','Abraham Silberschatz, Peter B. Galvin, Greg Gagne','Wiley',2008,1,'100','hardcover','Operating System','Technology');
 
+insert into Customers values ('1', 'Fast Login User', '1', '51322248373180630000', 'SUTD@Changi', '39507268');
+insert into Customers values ('Jorch', 'Jiuqi97', 'Jorch', '77460723910480740000', 'SUTD@Changi', '58528685');
+insert into Customers values ('Sven', 'Sven-Siyuan-Wang', 'Sven', '11612748976331205000', 'SUTD@Changi', '23434982');
+insert into Customers values ('Jenny', 'JennySG', 'Jenny', '22218961459584532000', 'SUTD@Changi', '77972665');
+insert into Customers values ('Xianyue', 'Xianyue', 'Xianyue', '84077494225930420000', 'SUTD@Changi', '92924220');
+insert into Customers values ('Yunzhe', 'YunzheZJU', 'Yunzhe', '42692024845164265000', 'SUTD@Changi', '77760195');
+insert into Customers values ('Alien', 'From Mars', 'Alien', '78185212160460650000', 'SUTD@Changi', '24901559');
+insert into Customers values ('Superman', 'Made in America', 'Superman', '83090744335204350000', 'SUTD@Changi', '81748625');
+insert into Customers values ('iPhone', 'From Apple', 'iPhone', '65107050053775310000', 'SUTD@Changi', '12903428');
 
+insert into Managers values ('1', 'Fast Login Manager', '1', 'SUTD@Changi', '39507268');
 
+insert into Feedbacks values ('1','9781449389673','2015-11-12 13:21:56',10,'I think it good enough.');
+insert into Feedbacks values ('Jorch','9781449389673','2015-11-12 13:21:56',7,'7 points');
+insert into Feedbacks values ('Sven','9781449389673','2015-11-12 13:22:57',2,'s**t');
+insert into Feedbacks values ('Jenny','9781449389673','2015-11-12 13:23:12',3,'haixing');
+insert into Feedbacks values ('Xianyue','9781449389673','2015-11-12 13:21:57',4,'yibanban');
+insert into Feedbacks values ('Yunzhe','9781449389673','2015-11-12 13:21:12',4,'mamahuhu');
+insert into Feedbacks values ('Alien','9781449389673','2015-11-12 13:51:34',5,'good');
+insert into Feedbacks values ('Superman','9781449389673','2015-11-12 13:20:56',9,'excellent');
+insert into Feedbacks values ('iPhone','9781594487712','2014-08-29 14:45:23',9,'fsgehyjrn');
+insert into Feedbacks values ('iPhone','9780321474049','2016-12-08 08:29:11',10,'good');
+insert into Feedbacks values ('iPhone','9780684801520','2016-07-26 22:12:45',7,'vbhdjnskc');
+insert into Feedbacks values ('iPhone','9780803612259','2016-01-11 21:49:26',6,'jvweksdj');
 
+insert into Orders values (20150002,'1','2015-11-06','Complete');
+insert into Orders values (20160003,'1','2016-12-09','Processing');
+insert into Orders values (20160001,'Jorch','2016-04-20','Complete');
+insert into Orders values (20150001,'Sven','2015-03-24','Complete');
+insert into Orders values (20160002,'Sven','2016-12-08','Processing');
 
-
-insert into Feedbacks values ('aaaaaaa','9781449389673','2015-11-12 13:21:56',3,'cbhksmldmncgyudiskamdbhjjsikmjdh');
-insert into Feedbacks values ('bbbbbbb','9781594487712','2014-08-29 14:45:23',9,'fsgehyjrn');
-insert into Feedbacks values ('chsjkalx','9780321474049','2016-12-08 08:29:11',10,'good');
-insert into Feedbacks values ('fewadjksm','9780684801520','2016-07-26 22:12:45',7,'vbhdjnskc');
-insert into Feedbacks values ('chsjkalx','9780803612259','2016-01-11 21:49:26',6,'jvweksdj');
-
-
-
-
-
-
-insert into Orders values (738495629,'fewfg','2015-11-06','Complete');
-insert into Orders values (357942579,'vsdzndxfnh','2016-12-09','Processing');
-insert into Orders values (234567668,'jbkmfcnk','2016-04-20','Complete');
-insert into Orders values (753795334,'aaaaaaa','2015-03-24','Complete');
-insert into Orders values (964268436,'bvsdhfgmkg','2016-12-08','Processing');
-
-
-insert into Items values (753795334,'9781449389673',2);
-insert into Items values (467923586,'9781594487712',3);
-insert into Items values (236569623,'9780321474049',2);
-insert into Items values (437648669,'9780684801520',1);
-insert into Items values (135475696,'9780803612259',2);
-
-
-
-
+insert into Items values (20160003,'9781449389673',2);
+insert into Items values (20160003,'9781594487712',3);
+insert into Items values (20150002,'9780321474049',2);
+insert into Items values (20150002,'9780684801520',1);
+insert into Items values (20160001,'9781449389673',2);
+insert into Items values (20160001,'9780803612259',2);
+insert into Items values (20150001,'9780803612259',2);
+insert into Items values (20160002,'9780803612259',2);

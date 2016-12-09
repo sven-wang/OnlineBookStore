@@ -1,6 +1,14 @@
+DROP TABLE IF EXISTS Managers;
+DROP TABLE IF EXISTS Rate;
+DROP TABLE IF EXISTS Items;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS Feedbacks;
+DROP TABLE IF EXISTS Customers;
+DROP TABLE IF EXISTS Books;
+
 CREATE TABLE Books(
     ISBN CHAR(13),
-    title CHAR(100),
+    title CHAR(255),
     authors VARCHAR(256),
     publisher VARCHAR(64),
     year INTEGER,
@@ -43,7 +51,7 @@ CREATE TABLE Orders(
 );
 
 CREATE TABLE Items(
-	  oid INTEGER,
+	oid INTEGER,
     ISBN CHAR(13),
     copies INTEGER,
     PRIMARY KEY (oid, ISBN),
@@ -70,5 +78,3 @@ CREATE TABLE Managers(
     phone_num CHAR(20),
     PRIMARY KEY(login_name)
 );
-
-

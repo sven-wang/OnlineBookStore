@@ -29,9 +29,9 @@
 <h2>{{ BookInfo[4] }}</h2>
 <h2>{{ BookInfo[5] }}</h2>
 <div style="margin-top:0.5em;text-align:center;line-height:2em;width:125px;background-color:#e7e7e7;">
-    <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}">
+    <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
         <input type="text" maxlength="{{ BookInfo[5] }}" value="1">
-        <input type="submit" name="add" value="Add to Cart!" onclick="alert('Successful!')">
+        <input type="submit" name="btn" value="Add to Cart!" onclick="alert('Successful!')">
     </form>
 </div>
 {% if FeedBack|length == 0 %}
@@ -48,17 +48,17 @@
             <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
                 <input type="hidden" name="ISBN" value="{{ BookInfo[0] }}">
                 <input type="hidden" name="fbn" value="{{ fb[0] }}">
-                <input type="radio" name="scores" value="1" required>1
+                <input type="radio" name="scores" value="0" required>0
+                <input type="radio" name="scores" value="1">1
                 <input type="radio" name="scores" value="2">2
-                <input type="radio" name="scores" value="3">3
-                <input type="submit" name="rate" value="Rate!">
+                <input type="submit" name="btn" value="Rate!">
             </form>
         </td>
     </tr>
     {% endfor %}
 </table>
+{% endif %}
 
-        {% endif %}
 <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post" style="margin-top:1em;">
     <textarea name="feedback" rows="8" cols="40" required></textarea>
     <input type="radio" name="score" value="1" required>1
@@ -71,5 +71,5 @@
     <input type="radio" name="score" value="8">8
     <input type="radio" name="score" value="9">9
     <input type="radio" name="score" value="10">10
-    <input type="submit" name="fb" value="Submit">
+    <input type="submit" name="btn" value="Submit">
 </form>

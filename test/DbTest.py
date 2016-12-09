@@ -85,7 +85,7 @@ def login():
             # print 123456789
             db = dbOperation.dbOperation()
             db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
-            #message = 'Create Successfully'
+            # message = 'Create Successfully'
             return redirect(url_for('login'))
         return render_template('error.html')
     return render_template('HomePage.html', error=error)
@@ -96,7 +96,6 @@ def search():
     if request.method == 'POST':
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'], request.form['order'], request.form['sequence'])
-        print 12345
     return render_template('Search.html', entries=entries)
 
 @app.route('/logout')
@@ -113,35 +112,27 @@ def bookinfo(ISBN):
     feedback = db.feedBackRank(ISBN, nfeedback)
     if feedback == None:
         feedback = []
-    print "1"
     if request.method == 'POST':
-        print "2"
-        if request.form['btn'] == 'add':
-            print "3"
-            # todo add to cart
+        print request.method
+        print request.form['btn']
+        print request.form
+        if request.form['btn'] == 'Add to Cart!':
+            pass
             return redirect(url_for('bookinfo', ISBN=ISBN))
-        elif request.form['btn'] == 'fb':
-            print "4"
+        elif request.form['btn'] == 'Submit':
+            db = dbOperation.dbOperation()
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
-        elif request.form['btn'] == 'rate':
-            print "5"
-            print session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores']
+        elif request.form['btn'] == 'Rate!':
+            db = dbOperation.dbOperation()
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
-        else:
-            print "1324"
-
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)
 
 @app.route('/user?=<string:USERNAME>')
 def userpage(USERNAME):
     db = dbOperation.dbOperation()
     account_info, order_history, feedback_history, feedback_rate = db.userRecord(USERNAME)
-    print account_info
-    print order_history
-    print feedback_history
-    print feedback_rate
     if order_history == None:
         order_history = []
     if feedback_history == None:

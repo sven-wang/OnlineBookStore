@@ -142,8 +142,8 @@ class dbOperation:
     #Function 6: Feedback recordings
     def feedBack(self, login_name, ISBN, score, text):
         query = "INSERT INTO Feedbacks " \
-                "VALUES ('"+login_name+"', '"+ISBN+"', CURDATE()) , '"+score+"', "+text+"');"
-        insertRate = "INSERT INTO Rate VALUES ('Nobody', " + login_name + ", '"+ISBN+"', 0 )"
+                "VALUES ('"+login_name+"', '"+ISBN+"', CURDATE() , "+score+", '"+text+"');"
+        insertRate = "INSERT INTO Rate VALUES ('"+ login_name +"', '" + login_name + "', '"+ISBN+"', 0 )"
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)

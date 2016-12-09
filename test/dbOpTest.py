@@ -20,13 +20,13 @@ query = "SELECT ISBN, sum(copies) \
                              FROM (SELECT distinct login_name \
                                     FROM Orders, Items \
                                     WHERE Orders.oid = Items.oid  \
-                                    WHERE ISBN = '" + ISBN + "') C, Orders O, Items I \
+                                    AND ISBN = '" + ISBN + "') C, Orders O, Items I \
                                WHERE c.login_name = o.login_name \
                                 AND O.oid = I.oid) \
                 AND Orders.login_name in (SELECT distinct login_name \
                                             FROM Orders, Items \
                                             WHERE Orders.oid = Items.oid  \
-                                            WHERE ISBN = '" + ISBN + "') \
+                                            AND ISBN = '" + ISBN + "') \
                 GROUP BY ISBN \
                 ORDER BY sum(copies) DESC"
 

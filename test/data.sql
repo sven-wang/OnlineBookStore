@@ -79,7 +79,9 @@ insert into Orders values (20150002,'1','2015-11-06','Complete');
 insert into Orders values (20160003,'1','2016-12-09','Processing');
 insert into Orders values (20160001,'Jorch','2016-04-20','Complete');
 insert into Orders values (20150001,'Sven','2015-03-24','Complete');
-insert into Orders values (20160002,'Sven','2016-12-08','Processing');
+insert into Orders values (20160002,'Sven','2016-12-08','Complete');
+insert into Orders values (20160004,'Sven','2016-12-19','Complete');
+
 
 insert into Items values (20160003,'9781449389673',2);
 insert into Items values (20160003,'9781594487712',3);
@@ -89,3 +91,5 @@ insert into Items values (20160001,'9781449389673',2);
 insert into Items values (20160001,'9780803612259',2);
 insert into Items values (20150001,'9780803612259',2);
 insert into Items values (20160002,'9780803612259',2);
+insert into Items values (20160002,'9780393072228',2);
+insert into Items values (20160004,'9780393072228',1);

@@ -221,3 +221,18 @@ class dbOperation:
 
 
     #Function 11: Statistics
+    # the list of the m most popular books (in terms of copies sold in this month)
+    def popularThisMonth(self, ISBN, n):
+        query = "SELECT AVR(usefulness) " \
+                "FROM Rate " \
+                "GROUP BY " + "'" + ISBN + "'" + \
+                "ORDER BY AVR(usefulness)" + " DESC " \
+                "LIMIT " + str(n) + ";"
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message
+    # the list of m most popular authors
+    # the list of m most popular publishers

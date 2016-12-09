@@ -24,7 +24,7 @@ class dbOperation:
         except Exception as ex:
             print ex.message
 
-    #Function 2: Ordering
+    # Function 2: Ordering
     def getBookName(self, ISBN):
         query = "SELECT title " \
                 "FROM Books " \
@@ -35,8 +35,52 @@ class dbOperation:
         except Exception as ex:
             print ex.message
 
-    #def ordering(self, login_name, date, status):
+    def ordering(self, login_name, ISBN):
+        # check curent order status
+        query1 = "SELECT status " \
+                 "FROM (SELECT status, oid " \
+                        "FROM Orders " \
+                        "WHERE login_name = '" + login_name + "') " \
+                 "WHERE oid = MAX(oid)"
+        # get global max oid
+        query2 = "SELECT MAX(oid) FROM Orders"
+        # get user's max oid
+        query3 = "SELECT MAX(oid) " \
+                 "FROM Orders " \
+                 "WHERE login_name = '" + login_name + "';"
+        try:
+            db = dbconnect.dbConnect()
+            # checking user's current order status first
+            status = db.readDB(query1)
+            if status == 'Complete':
+                # get global max oid
+                oid = db.readDB(query2)
+                # allocate a new oid
+                oid = str(long(oid) + 1)
+                # insert a new order
+                db.insertDB("INSERT INTO Orders(" + oid + ", '" + login_name + "', CURDATE(), 'Processing')")
+                # insert a new item under this oid
+                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', copies)")
 
+            if status == 'Processing':
+                # get user's current max id
+                oid = db.readDB(query3)
+                # insert new item
+                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', copies)")
+        except Exception as ex:
+            print ex.message
+
+    def checkOut(self, oid):
+        ## oid : int
+
+        query = "UPDATE Orders " \
+                "SET status = 'Complete' AND date = CURDATE()"  + \
+                "WHERE oid = " + str(oid) + ";"
+        try:
+            db = dbconnect.dbConnect()
+            db.updateDB(query)
+        except Exception as ex:
+            print ex.message
 
 
     #Function 3: User Record

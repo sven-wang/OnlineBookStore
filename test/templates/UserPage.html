@@ -15,27 +15,55 @@
 {% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
+        <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
+<table border="1" style="margin-top:8em;">
+    <caption>Account Info</caption>
+    <tr>
+        <th>Login Name</th>
+        <td>{{ A[0] }}</td>
+    </tr>
+    <tr>
+        <th>Full Name</th>
+        <td>{{ A[1] }}</td>
+    </tr>
+    <tr>
+        <th>Password</th>
+        <td>{{ A[2] }}</td>
+    </tr>
+    <tr>
+        <th>Card Number</th>
+        <td>{{ A[3] }}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{ A[4] }}</td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td>{{ A[5] }}</td>
+    </tr>
+</table>
 
 {% if O|length == 0 %}
 <h1 style="margin-top:8em;">No order_history yet!</h1>
 {% else %}
     <table border="1" style="text-align:center;margin-top:8em;">
+        <caption>Order History</caption>
         <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td>OrderID</td>
+            <td>Date</td>
+            <td>Status</td>
         </tr>
         {% for o in O %}
         <tr>
             <td>{{ o[0] }}</td>
-            <td>{{ o[1] }}</td>
             <td>{{ o[2] }}</td>
+            <td>{{ o[3] }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -45,16 +73,19 @@
     <h1 style="margin-top:8em;">No feedback_history yet!</h1>
 {% else %}
     <table border="1" style="text-align:center;margin-top:8em;">
+        <caption>Feedback History</caption>
         <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td>ISBN</td>
+            <td>Date</td>
+            <td>Score</td>
+            <td>Feedback</td>
         </tr>
         {% for h in H %}
         <tr>
-            <td>{{ h[0] }}</td>
             <td>{{ h[1] }}</td>
             <td>{{ h[2] }}</td>
+            <td>{{ h[3] }}</td>
+            <td>{{ h[4] }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -64,16 +95,23 @@
 <h1 style="margin-top:8em;">No feedback_rate yet!</h1>
 {% else %}
     <table border="1" style="text-align:center;margin-top:8em;">
+        <caption>Feedback Rate</caption>
         <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td>ISBN</td>
+            <td>Date</td>
+            <td>Scores</td>
+            <td>Feedback</td>
+            <td>Who rates</td>
+            <td>Usefulness</td>
         </tr>
         {% for r in R %}
         <tr>
-            <td>{{ r[0] }}</td>
             <td>{{ r[1] }}</td>
             <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+            <td>{{ r[4] }}</td>
+            <td>{{ r[5] }}</td>
+            <td>{{ r[8] }}</td>
         </tr>
         {% endfor %}
     </table>

@@ -15,7 +15,7 @@
 {% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
+        <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
@@ -28,6 +28,10 @@
 <h2>{{ BookInfo[3] }}</h2>
 <h2>{{ BookInfo[4] }}</h2>
 <h2>{{ BookInfo[5] }}</h2>
+<h2>{{ BookInfo[6] }}</h2>
+<h2>{{ BookInfo[7] }}</h2>
+<h2>{{ BookInfo[8] }}</h2>
+<h2>{{ BookInfo[9] }}</h2>
 <div style="margin-top:0.5em;text-align:center;line-height:2em;width:125px;background-color:#e7e7e7;">
     <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
         <input type="text" maxlength="{{ BookInfo[5] }}" value="1">
@@ -38,11 +42,20 @@
 <h1>No feedback yet!</h1>
 {% else %}
 <table border="1" style="text-align:center;">
-    <tr><td>USERNAME</td><td>ISBN</td><td>entry[5]</td></tr>
+    <tr>
+        <td>Name</td>
+        <td>Feedback</td>
+        <td>Scores</td>
+        <td>Usefulness</td>
+        <td>Date</td>
+        <td>Is it useful?</td>
+    </tr>
     {% for fb in FeedBack %}
     <tr>
         <td>{{ fb[0] }}</td>
         <td>{{ fb[1] }}</td>
+        <td>{{ fb[2] }}</td>
+        <td>{{ fb[3] }}</td>
         <td>{{ fb[4] }}</td>
         <td>
             <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">

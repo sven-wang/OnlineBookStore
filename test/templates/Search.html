@@ -15,7 +15,7 @@
 {% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
+        <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
@@ -57,11 +57,21 @@
             <td>Price</td>
             <td>Format</td>
             <td>Keywords</td>
-            <td></td>
-            <td></td>
+            <td>Subject</td>
         </tr>
         {% for entry in entries %}
-        <tr><td><a href="{{ url_for('bookinfo', ISBN=entry[0]) }}">{{ entry[0] }}</a></td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
+        <tr>
+            <td><a href="{{ url_for('bookinfo', ISBN=entry[0]) }}">{{ entry[0] }}</a></td>
+            <td>{{ entry[1] }}</td>
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+            <td>{{ entry[4] }}</td>
+            <td>{{ entry[5] }}</td>
+            <td>{{ entry[6] }}</td>
+            <td>{{ entry[7] }}</td>
+            <td>{{ entry[8] }}</td>
+            <td>{{ entry[9] }}</td>
+        </tr>
         {% endfor %}
     </table>
     {% endif %}

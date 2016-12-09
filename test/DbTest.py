@@ -114,9 +114,6 @@ def bookinfo(ISBN):
     if feedback == None:
         feedback = []
     if request.method == 'POST':
-        print request.method
-        print request.form['btn']
-        print request.form
         if request.form['btn'] == 'Add to Cart!':
             pass
             return redirect(url_for('bookinfo', ISBN=ISBN))
@@ -138,7 +135,7 @@ def userpage(USERNAME):
         feedback_history = []
     if feedback_rate == None:
         feedback_rate = []
-    return render_template('UserPage.html', A=account_info, O=order_history, H=feedback_history, R=feedback_rate)
+    return render_template('UserPage.html', A=account_info[0], O=order_history, H=feedback_history, R=feedback_rate)
 
 @app.route('/cart')
 def cart():

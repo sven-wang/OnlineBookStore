@@ -58,6 +58,20 @@ class dbOperation:
         except Exception as ex:
             print ex.message
 
+    def viewCart(self, login_name):
+        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies \
+                  FROM (SELECT ISBN, copies \
+                        FROM (SELECT MAX(oid) \
+                              FROM Orders \
+                              WHERE login_name = '" + login_name + "' AND status = 'Processing') o, Items i \
+                        WHERE o.oid = i. oid) info, Books \
+                  WHERE info.ISBN = Books.ISBN"
+        try:
+            db = dbconnect.dbConnect()
+            return db.readDB(query)
+        except Exception as ex:
+            print ex.message
+
     def checkOut(self, oid):
         ## oid : int
 

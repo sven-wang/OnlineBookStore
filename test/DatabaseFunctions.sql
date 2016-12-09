@@ -73,14 +73,15 @@ INSERT INTO Customers (login_name, full_name, passwords, card_num, address, phon
 VALUES (login_name, full_name, passwords, card_num, address, phone_num);
 
 ## 2) Ordering
-# siyuan
-INSERT INTO Orders 
-VALUES (    
-    login_name,
-    ISBN,
-    copies,
-    dateTime,
-    status);
+
+#ViewCart Function
+SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies
+FROM (SELECT ISBN, copies
+      FROM (SELECT MAX(oid)
+            FROM Orders
+            WHERE login_name = "login_name" AND status = 'Processing') o, Items i
+      WHERE o.oid = i. oid) info, Books
+WHERE info.ISBN = Books.ISBN
 
 
 ## 3) User record

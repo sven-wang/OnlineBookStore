@@ -122,20 +122,12 @@ WHERE ISBN =
 INSERT INTO Feedbacks (fid, cid, bid, dateTime, score, text) 
 VALUES (fid, cid, bid, dateTime, score, text);
 
+INSERT INTO Rate VALUES ('Nobody', '+ feedback_name +', '+ISBN+', 0 )
 
 ## 7) Usefulness ratings
-INSERT INTO Rate(login_name, fid, usefulness)
-VALUES (login_name, fid, usefulness);
+INSERT INTO Feedbacks VALUES ('"+rater_name+"', '"+feedback_name+"', '"+ISBN+"', '"+usefulness+"');"
 
-/*mySQL*/
-CREATE TRIGGER check_rate BEFORE INSERT ON Rate
-#Referencing New ROW AS OT
-WHEN (
-    New.login_name <> (SELECT f.login_name
-    FROM Feedbacks f
-    WHERE f.fid=New.fid)
-)
-INSERT INTO Rate VALUES New
+
 
 
 
@@ -150,10 +142,7 @@ AND LOWER(subject) = LOWER("subject")
 # sorting 
 
 ## 9) Useful feedbacks
-# Yujia
-SELECT AVG(usefulness) FROM Rate
-GROUP BY fid
-ORDER BY AVG(usefulness) DESC
+
 
 
 ## 10) Book recommendation
@@ -183,4 +172,15 @@ FROM (SELECT ISBN, copies
 	  WHERE  MONTH(date) = 12 AND YEAR(date) = 2016 AND status = 'Complete') info
 GROUP BY ISBN
 ORDER BY SUM(copies) DESC
+LIMIT 1
+
+SELECT authors, SUM(sale)
+FROM (SELECT ISBN, SUM(copies) sale
+	  FROM (SELECT ISBN, copies
+	  		FROM Orders o, Items i
+	  		WHERE o.oid = i.oid AND MONTH(date) = 12 AND YEAR(date) = 2016 AND status = 'Complete') info
+	  GROUP BY ISBN) sales, Books
+WHERE sales.ISBN = Books.ISBN
+GROUP BY authors
+ORDER BY SUM(sale) DESC
 LIMIT 1

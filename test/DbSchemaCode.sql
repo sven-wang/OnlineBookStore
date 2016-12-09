@@ -33,7 +33,7 @@ CREATE TABLE Customers(
 CREATE TABLE Feedbacks(
     login_name CHAR(50),
     ISBN CHAR(13),
-    dateTime DATETIME,
+    date DATE ,
     score INTEGER CHECK(score >=1 AND score <= 10),
     text CHAR(200),
     PRIMARY KEY (login_name, ISBN),

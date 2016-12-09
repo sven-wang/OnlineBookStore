@@ -1,4 +1,5 @@
 import dbconnect
+import datetime
 
 class dbOperation:
     #Basic queries
@@ -93,19 +94,22 @@ class dbOperation:
             print ex.message
 
     #Function 6: Feedback recordings
-    def feedBack(self, login_name, ISBN, dateTime, score, text):
+    def feedBack(self, login_name, ISBN, score, text):
         query = "INSERT INTO Feedbacks " \
-                "VALUES ('"+login_name+"', '"+ISBN+"', '"+dateTime+"', '"+score+"', "+text+"');"
+                "VALUES ('"+login_name+"', '"+ISBN+"', CURDATE()) , '"+score+"', "+text+"');"
+        insertRate = "INSERT INTO Rate VALUES ('Nobody', " + login_name + ", '"+ISBN+"', 0 )"
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)
+            db.insertDB(insertRate)
         except Exception as ex:
             print ex.message
 
     #Function 7: Usefulness ratings
     def rate(self, rater_name, feedback_name, ISBN, usefulness):
-        query = "INSERT INTO Feedbacks " \
+        query = "INSERT INTO Rate " \
                 "VALUES ('"+rater_name+"', '"+feedback_name+"', '"+ISBN+"', '"+usefulness+"');"
+
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)
@@ -180,10 +184,10 @@ class dbOperation:
 
     #Function 9: Useful feedbacks
     def feedBackRank(self, ISBN, n):
-        query = "SELECT AVR(usefulness) " \
+        query = "SELECT AVG(usefulness) " \
                 "FROM Rate " \
                 "GROUP BY " + "'" + ISBN + "'" + \
-                "ORDER BY AVR(usefulness)" + " DESC " \
+                "ORDER BY AVG(usefulness)" + " DESC " \
                 "LIMIT " + str(n) + ";"
         try:
             db = dbconnect.dbConnect()
@@ -222,12 +226,18 @@ class dbOperation:
 
     #Function 11: Statistics
     # the list of the m most popular books (in terms of copies sold in this month)
-    def popularThisMonth(self, ISBN, n):
-        query = "SELECT AVR(usefulness) " \
-                "FROM Rate " \
-                "GROUP BY " + "'" + ISBN + "'" + \
-                "ORDER BY AVR(usefulness)" + " DESC " \
-                "LIMIT " + str(n) + ";"
+    def popularThisMonth(self, m):
+        year = datetime.date.today().year
+        month = datetime.date.today().month
+
+        query = "SELECT ISBN, SUM(copies) \
+                    FROM (SELECT ISBN, copies \
+                          FROM Orders JOIN Items on Orders.oid = Items.oid \
+                          WHERE  MONTH(date) = " + str(month) + " AND YEAR(date) = " + str(year) + " AND status = 'Complete') info \
+                    GROUP BY ISBN \
+                    ORDER BY SUM(copies) DESC \
+                    LIMIT " + str(m)
+
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)

@@ -227,7 +227,8 @@ class dbOperation:
             print ex.message
 
     #Function 10: Book recommendation
-    def getRecommendation(self, ISBN):
+
+    def getRecommendation(self, ISBN, login_name):
         query = "SELECT ISBN, sum(copies) \
                 FROM Orders, Items \
                 WHERE Orders.oid = Items.oid \
@@ -242,6 +243,10 @@ class dbOperation:
                                             FROM Orders, Items \
                                             WHERE Orders.oid = Items.oid  \
                                             AND ISBN = '" + ISBN + "') \
+                AND ISBN not in (SELECT  ISBN   \
+	             			FROM Orders, Items  \
+	               			WHERE Orders.oid = Items.oid    \
+	                    	AND login_name = '" + login_name + "') \
                 GROUP BY ISBN \
                 ORDER BY sum(copies) DESC"
 
@@ -298,6 +303,8 @@ class dbOperation:
 
 
     # the list of m most popular publishers
+
+
     def popularPublishers(self, m):
         year = datetime.date.today().year
         month = datetime.date.today().month

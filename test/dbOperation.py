@@ -2,18 +2,6 @@ import dbconnect
 import datetime
 
 class dbOperation:
-    #Basic queries
-    def get_max(self, table, sort_key):
-        query = "SELECT " + sort_key + " " \
-                "FROM " + table + " " \
-                "ORDER BY " + sort_key + " DESC " \
-                "LIMIT 1;"
-        try:
-            db = dbconnect.dbConnect()
-            return db.readDB(query)
-        except Exception as ex:
-            print ex.message
-
     #Fuction 1: Registration
     def registration(self, login_name, full_name, passwords, card_num, address, phone_num):
         query = "INSERT INTO Customers (login_name, full_name, passwords, card_num, address, phone_num) " \
@@ -239,7 +227,6 @@ class dbOperation:
             print ex.message
 
     #Function 10: Book recommendation
-
     def getRecommendation(self, ISBN):
         query = "SELECT ISBN, sum(copies) \
                 FROM Orders, Items \
@@ -311,8 +298,6 @@ class dbOperation:
 
 
     # the list of m most popular publishers
-
-
     def popularPublishers(self, m):
         year = datetime.date.today().year
         month = datetime.date.today().month

@@ -95,7 +95,7 @@ def search():
     entries = None
     if request.method == 'POST':
         db = dbOperation.dbOperation()
-        entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'])
+        entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'], request.form['order'], request.form['sequence'])
         print 12345
     return render_template('Search.html', entries=entries)
 

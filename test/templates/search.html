@@ -29,6 +29,18 @@
         <input style="height:2em;margin-left:80%;margin-top:-2em;font-size:1.6em;" type="submit" name="btn" value="search">
         <div style="margin-top:-1em;margin-left:20px;">Title　　<input type="search" size="30%" name="title"></div>
         <div style="margin-top:-1em;margin-left:50%;">Subject　<input type="search" size="30%" name="subject"></div>
+        <div style="margin-top:1em;margin-left:20px;">
+            <label>Order </label>
+            <select name="order">
+                <option value="">Default</option>
+                <option value="year">Year</option>
+                <option value="score">Average Score</option>
+            </select>
+            <select name="sequence">
+                <option value="d">Descending</option>
+                <option value="a">Ascending</option>
+            </select>
+        </div>
     </form>
     {% else %}
     <p>Please log in first!</p>

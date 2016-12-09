@@ -104,8 +104,8 @@ class dbOperation:
 
         # the list of all the feedbacks he/she ranked with respect to usefulness
         query4 = "SELECT * " \
-                 "FROM Feedback f, Rate r " \
-                 "WHERE login_name = " + "'" + login_name + "' AND f.fid = r.fid;"
+                 "FROM Feedbacks f, Rate r " \
+                 "WHERE r.feedback_name = " + "'" + login_name + "' AND r.feedback_name = f.login_name AND f.ISBN = r.ISBN;"
 
         try:
             db = dbconnect.dbConnect()
@@ -222,6 +222,7 @@ class dbOperation:
             pass
 
         try:
+            print(query)
             db = dbconnect.dbConnect()
             results = db.readDB(query)
             return results

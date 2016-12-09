@@ -184,11 +184,9 @@ class dbOperation:
 
     #Function 9: Useful feedbacks
     def feedBackRank(self, ISBN, n):
-        query = "SELECT AVG(usefulness) " \
-                "FROM Rate " \
-                "GROUP BY " + "'" + ISBN + "'" + \
-                "ORDER BY AVG(usefulness)" + " DESC " \
-                "LIMIT " + str(n) + ";"
+        query = "SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks \
+                  WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = '" + ISBN + "' GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT " + str(n)
+
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)

@@ -62,18 +62,18 @@ insert into Customers values ('iPhone', 'From Apple', 'iPhone', '651070500537753
 
 insert into Managers values ('1', 'Fast Login Manager', '1', 'SUTD@Changi', '39507268');
 
-insert into Feedbacks values ('1','9781449389673','2015-11-12 13:21:56',10,'I think it good enough.');
-insert into Feedbacks values ('Jorch','9781449389673','2015-11-12 13:21:56',7,'7 points');
-insert into Feedbacks values ('Sven','9781449389673','2015-11-12 13:22:57',2,'s**t');
-insert into Feedbacks values ('Jenny','9781449389673','2015-11-12 13:23:12',3,'haixing');
-insert into Feedbacks values ('Xianyue','9781449389673','2015-11-12 13:21:57',4,'yibanban');
-insert into Feedbacks values ('Yunzhe','9781449389673','2015-11-12 13:21:12',4,'mamahuhu');
-insert into Feedbacks values ('Alien','9781449389673','2015-11-12 13:51:34',5,'good');
-insert into Feedbacks values ('Superman','9781449389673','2015-11-12 13:20:56',9,'excellent');
-insert into Feedbacks values ('iPhone','9781594487712','2014-08-29 14:45:23',9,'fsgehyjrn');
-insert into Feedbacks values ('iPhone','9780321474049','2016-12-08 08:29:11',10,'good');
-insert into Feedbacks values ('iPhone','9780684801520','2016-07-26 22:12:45',7,'vbhdjnskc');
-insert into Feedbacks values ('iPhone','9780803612259','2016-01-11 21:49:26',6,'jvweksdj');
+insert into Feedbacks values ('1','9781449389673','2015-11-12',10,'I think it good enough.');
+insert into Feedbacks values ('Jorch','9781449389673','2015-11-12',7,'7 points');
+insert into Feedbacks values ('Sven','9781449389673','2015-11-12',2,'s**t');
+insert into Feedbacks values ('Jenny','9781449389673','2015-11-12',3,'haixing');
+insert into Feedbacks values ('Xianyue','9781449389673','2015-11-12',4,'yibanban');
+insert into Feedbacks values ('Yunzhe','9781449389673','2015-11-12',4,'mamahuhu');
+insert into Feedbacks values ('Alien','9781449389673','2015-11-12',5,'good');
+insert into Feedbacks values ('Superman','9781449389673','2015-11-12',9,'excellent');
+insert into Feedbacks values ('iPhone','9781594487712','2014-08-29',9,'fsgehyjrn');
+insert into Feedbacks values ('iPhone','9780321474049','2016-12-08',10,'good');
+insert into Feedbacks values ('iPhone','9780684801520','2016-07-26',7,'vbhdjnskc');
+insert into Feedbacks values ('iPhone','9780803612259','2016-01-11',6,'jvweksdj');
 
 insert into Orders values (20150002,'1','2015-11-06','Complete');
 insert into Orders values (20160003,'1','2016-12-09','Processing');
@@ -93,3 +93,7 @@ insert into Items values (20150001,'9780803612259',2);
 insert into Items values (20160002,'9780803612259',2);
 insert into Items values (20160002,'9780393072228',2);
 insert into Items values (20160004,'9780393072228',1);
+
+
+insert into Rate values ('iPhone','Alien','9781449389673',0);
+

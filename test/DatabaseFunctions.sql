@@ -142,7 +142,10 @@ AND LOWER(subject) = LOWER("subject")
 # sorting 
 
 ## 9) Useful feedbacks
-
+# siyuan
+SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks
+WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = '9781449389673'
+GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT 5;
 
 
 ## 10) Book recommendation

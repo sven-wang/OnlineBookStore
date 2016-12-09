@@ -113,14 +113,25 @@ def bookinfo(ISBN):
     feedback = db.feedBackRank(ISBN, nfeedback)
     if feedback == None:
         feedback = []
+    print "1"
     if request.method == 'POST':
+        print "2"
         if request.form['btn'] == 'add':
-            pass
+            print "3"
+            # todo add to cart
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'fb':
-            db = dbOperation.dbOperation()
+            print "4"
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
+        elif request.form['btn'] == 'rate':
+            print "5"
+            print session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores']
+            db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
+            return redirect(url_for('bookinfo', ISBN=ISBN))
+        else:
+            print "1324"
+
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)
 
 @app.route('/user?=<string:USERNAME>')

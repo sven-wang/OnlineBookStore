@@ -176,18 +176,11 @@ GROUP BY ISBN
 ORDER BY sum(copies) DESC
 
 ## 11) Statistics 
-#xy
-#the list of the m most popular books 
-SELECT SUM(copies) FROM orders
+
+SELECT ISBN, SUM(copies)
+FROM (SELECT ISBN, copies
+	  FROM Orders JOIN Items on Orders.oid = Items.oid
+	  WHERE  MONTH(date) = 12 AND YEAR(date) = 2016 AND status = 'Complete') info
 GROUP BY ISBN
 ORDER BY SUM(copies) DESC
-
-#the list of m most popular authors 
-SELECT SUM(copies) FROM Orders, Customers
-GROUP BY authors
-ORDER BY SUM(copies) DESC
-
-#the list of m most popular publishers 
-SELECT SUM(copies) FROM Orders, Books
-GROUP BY publisher
-ORDER BY SUM(copies) DESC
+LIMIT 1

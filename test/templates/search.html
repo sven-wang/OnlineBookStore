@@ -39,7 +39,19 @@
     <p>No records!</p>
     {% else %}
     <table border="1" style="text-align:center;">
-        <tr><td>ISBN</td><td>entry[1]</td><td>entry[2]</td></tr>
+        <tr>
+            <td>ISBN</td>
+            <td>Title</td>
+            <td>Author</td>
+            <td>Publishers</td>
+            <td>year</td>
+            <td>Copies</td>
+            <td>Price</td>
+            <td>Format</td>
+            <td>Keywords</td>
+            <td></td>
+            <td></td>
+        </tr>
         {% for entry in entries %}
         <tr><td><a href="{{ url_for('bookinfo', ISBN=entry[0]) }}">{{ entry[0] }}</a></td><td>{{ entry[1] }}</td><td>{{ entry[2] }}</td></tr>
         {% endfor %}

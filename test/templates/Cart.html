@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-<title>BuyLah</title>
+<title>InfoLah</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
@@ -9,7 +9,6 @@
     </style>
 </head>
 <body>
-
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
         <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
@@ -18,12 +17,10 @@
         {% if not session.logged_in %}
         <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
         {% else %}
-        <p>Welcome back,{{ session.username }}!　　<a href="{{ url_for('logout') }}">log out</a></p>
-        <p style="text-align:right;"><a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a></p>
+        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
         {% endif %}
     </div>
 </div>
-
 {% if not session.logged_in %}
 <p style="margin-top:6em">>Please <a href="{{ url_for('login') }}">log in</a> first</p>
 {% else %}

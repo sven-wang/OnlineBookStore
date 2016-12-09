@@ -187,3 +187,15 @@ WHERE sales.ISBN = Books.ISBN
 GROUP BY authors
 ORDER BY SUM(sale) DESC
 LIMIT 1
+
+
+SELECT publisher, SUM(sale)
+FROM (SELECT ISBN, SUM(copies) sale
+	  FROM (SELECT ISBN, copies
+	  		FROM Orders o, Items i
+	  		WHERE o.oid = i.oid AND MONTH(date) = 12 AND YEAR(date) = 2016 AND status = 'Complete') info
+	  GROUP BY ISBN) sales, Books
+WHERE sales.ISBN = Books.ISBN
+GROUP BY publisher
+ORDER BY SUM(sale) DESC
+LIMIT 1

@@ -287,6 +287,50 @@ class dbOperation:
         except Exception as ex:
             print ex.message
     # the list of m most popular authors
+    def popularAuthors(self, m):
+        year = datetime.date.today().year
+        month = datetime.date.today().month
+
+        query = "SELECT authors, SUM(sale) \
+                FROM (SELECT ISBN, SUM(copies) sale \
+                      FROM (SELECT ISBN, copies \
+                            FROM Orders o, Items i \
+                            WHERE o.oid = i.oid AND MONTH(date) = " + str(month) + " AND YEAR(date) = " + str(year) + " AND status = 'Complete') info \
+                      GROUP BY ISBN) sales, Books \
+                WHERE sales.ISBN = Books.ISBN \
+                GROUP BY authors \
+                ORDER BY SUM(sale) DESC \
+                LIMIT " + str(m)
+
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message
 
 
     # the list of m most popular publishers
+
+
+    def popularPublishers(self, m):
+        year = datetime.date.today().year
+        month = datetime.date.today().month
+
+        query = "SELECT publisher, SUM(sale) \
+                FROM (SELECT ISBN, SUM(copies) sale \
+                      FROM (SELECT ISBN, copies \
+                            FROM Orders o, Items i \
+                            WHERE o.oid = i.oid AND MONTH(date) = " + str(month) + " AND YEAR(date) = " + str(year) + " AND status = 'Complete') info \
+                      GROUP BY ISBN) sales, Books \
+                WHERE sales.ISBN = Books.ISBN \
+                GROUP BY publisher \
+                ORDER BY SUM(sale) DESC \
+                LIMIT " + str(m)
+
+        try:
+            db = dbconnect.dbConnect()
+            results = db.readDB(query)
+            return results
+        except Exception as ex:
+            print ex.message

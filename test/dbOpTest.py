@@ -14,7 +14,58 @@ year = 2016
 month = 12
 m = 3
 
-query = "SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks \
-          WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = '" + ISBN + "' GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT " + str(n)
+sortBy = 'year'
+Desc_Asc = 'd'
 
+query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score) \
+          FROM Books natural join Feedbacks"
+
+if (authors != ''):
+    query += " WHERE LOWER(authors) LIKE LOWER('%" + authors + "%')"
+    if (publisher != ''):
+        query += " AND LOWER(publisher) LIKE LOWER('%" + publisher + "%')"
+        if (title != ''):
+            query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+        else:
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+    else:
+        if (title != ''):
+            query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+        else:
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+else:
+    if (publisher != ''):
+        query += " WHERE LOWER(publisher) LIKE LOWER('%" + publisher + "%')"
+        if (title != ''):
+            query += " AND LOWER(title) LIKE LOWER('%" + title + "%')"
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+        else:
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+    else:
+        if (title != ''):
+            query += " WHERE LOWER(title) LIKE LOWER('%" + title + "%')"
+            if (subject != ''):
+                query += " AND LOWER(subject) LIKE LOWER('%" + subject + "%')"
+        else:
+            if (subject != ''):
+                query += " WHERE LOWER(subject) LIKE LOWER('%" + subject + "%')"
+query += " GROUP BY Books.ISBN"
+if sortBy == 'year':
+    query += " ORDER BY year"
+    if Desc_Asc == 'd':
+        query += " Desc"
+elif sortBy == 'score':
+    query += " ORDER BY score"
+    if Desc_Asc == 'd':
+        query += ' Desc'
+else:
+    pass
 print query

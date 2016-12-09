@@ -209,7 +209,7 @@ class dbOperation:
                 else:
                     if (subject != ''):
                         query += " WHERE LOWER(subject) LIKE LOWER('%" + subject + "%')"
-
+        query += " GROUP BY Books.ISBN"
         if sortBy == 'year':
             query += " ORDER BY year"
             if Desc_Asc == 'd':

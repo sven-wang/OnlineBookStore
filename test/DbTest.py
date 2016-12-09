@@ -101,6 +101,7 @@ def search():
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
+    session.pop('manager_logged_in', None)
     flash('You were logged out.ByeLah！')
     return render_template('Logout.html')
 
@@ -120,11 +121,9 @@ def bookinfo(ISBN):
             pass
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':
-            db = dbOperation.dbOperation()
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Rate!':
-            db = dbOperation.dbOperation()
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)

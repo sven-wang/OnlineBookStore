@@ -8,17 +8,17 @@
     a{ text-decoration:none;}
     </style>
 </head>
+
 <body>
+{% if not session.logged_in %}
+<p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
+{% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        {% if not session.logged_in %}
-        <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
-        {% else %}
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
-        {% endif %}
     </div>
 </div>
 <div style="margin-top:6em;"></div>
@@ -73,3 +73,5 @@
     <input type="radio" name="score" value="10">10
     <input type="submit" name="btn" value="Submit">
 </form>
+{% endif %}
+</body>

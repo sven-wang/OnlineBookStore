@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-<title>BackLah</title>
+<title>NewLah</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
@@ -8,20 +8,20 @@
     a{ text-decoration:none;}
     </style>
 </head>
+
 <body>
+{% if not session.manager_logged_in %}
+<h1>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h1>
+{% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        {% if not session.manager_logged_in %}
-        {% else %}
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.managername }}!　|　<a href="{{ url_for('logout') }}">log out</a></p>
-        {% endif %}
     </div>
 </div>
 <div style="margin-top:11em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
-    {% if session.manager_logged_in %}
     <form action="{{ url_for('newbook') }}" method=post>
         <div>ISBN　 <input type="search" size="30%" name="isbn" required></div>
         <div>Title<input type="search" size="30%" name="title" required></div>
@@ -30,7 +30,6 @@
         <div>Year<input type="search" size="30%" name="year" required></div>
         <div>Copies<input type="search" size="30%" name="copies" required></div>
         <div>Price<input type="search" size="30%" name="price" required></div>
-        <!--div>Format<input type="search" size="30%" name="format" required></div-->
         <div>Keywords<input type="search" size="30%" name="keywords" required></div>
         <div>Subject<input type="search" size="30%" name="subject" required></div>
         <label>Format</label>
@@ -40,8 +39,7 @@
             <input type="submit" name="btn" value="submit">
         </div>
     </form>
-    <div style="text-align:center;width:200px;line-height:2em;background-color:#e5e5e5;"><a href="{{ url_for('backstage') }}">No more books to add?</a></div>
-    {% else %}
-    <p>Please log in first!</p>
-    {% endif %}
+    <div style="text-align:center;width:200px;line-height:2em;background-color:#e5e5e5;"><a href="{{ url_for('backstage') }}">No more books to add</a></div>
 </div>
+{% endif %}
+</body>

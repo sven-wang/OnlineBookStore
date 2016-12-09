@@ -11,7 +11,7 @@
 <body>
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
         <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('manager') }}">Ahh...I'm a manager...</a></p>

@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-<title>SearchLah</title>
+<title>SearLah</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
@@ -8,21 +8,20 @@
     a{ text-decoration:none;}
     </style>
 </head>
+
 <body>
+{% if not session.logged_in %}
+<p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
+{% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40">
+        <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        {% if not session.logged_in %}
-        <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('login') }}">Ahh...I'm a manager...</a></p>
-        {% else %}
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
-        {% endif %}
     </div>
 </div>
 <div style="margin-top:11em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
-    {% if session.logged_in %}
     <form action="{{ url_for('search') }}" method=post>
         <div style="margin-top:0.5em;margin-left:20px;">Author　 <input type="search" size="30%" name="author"></div>
         <div style="margin-top:-1em;margin-left:50%;">Publisher<input type="search" size="30%" name="publisher"></div>
@@ -42,9 +41,6 @@
             </select>
         </div>
     </form>
-    {% else %}
-    <p>Please log in first!</p>
-    {% endif %}
 </div>
 <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
     {% if entries == None %}
@@ -70,4 +66,5 @@
     </table>
     {% endif %}
 </div>
+{% endif %}
 </body>

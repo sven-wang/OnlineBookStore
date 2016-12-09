@@ -268,7 +268,7 @@ class dbOperation:
 
     #Function 11: Statistics
     # the list of the m most popular books (in terms of copies sold in this month)
-    def popularThisMonth(self, m):
+    def popularBooks(self, m):
         year = datetime.date.today().year
         month = datetime.date.today().month
 
@@ -287,4 +287,6 @@ class dbOperation:
         except Exception as ex:
             print ex.message
     # the list of m most popular authors
+
+
     # the list of m most popular publishers

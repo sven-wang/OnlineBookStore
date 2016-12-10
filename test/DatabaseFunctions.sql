@@ -121,9 +121,11 @@ FROM Customers
 WHERE login_name = "login_name"
 
 # his/her full history of orders
-SELECT *
-FROM Orders
-WHERE login_name = "login_name"
+SELECT oid, date, title, info.copies
+FROM (SELECT oid, date, ISBN, copies
+      FROM Orders o NATURAL JOIN Items i
+      WHERE login_name = "login_name") info, Books
+WHERE info.ISBN = Books.ISBN
 
 # his/her full history of feedbacks
 SELECT *

@@ -82,7 +82,7 @@
         </tr>
         {% for h in H %}
         <tr>
-            <td>{{ h[1] }}</td>
+            <td><a href="{{ url_for('bookinfo', ISBN=h[1]) }}">{{ h[1] }}</a></td>
             <td>{{ h[2] }}</td>
             <td>{{ h[3] }}</td>
             <td>{{ h[4] }}</td>
@@ -106,7 +106,7 @@
         </tr>
         {% for r in R %}
         <tr>
-            <td>{{ r[1] }}</td>
+            <td><a href="{{ url_for('bookinfo', ISBN=r[1]) }}">{{ r[1] }}</a></td>
             <td>{{ r[2] }}</td>
             <td>{{ r[3] }}</td>
             <td>{{ r[4] }}</td>

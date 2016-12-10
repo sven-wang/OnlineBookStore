@@ -7,9 +7,9 @@
     <style type=text/css>
     a{ text-decoration:none;}
     </style-->
-    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
 </head>
 
 <body>
@@ -24,10 +24,10 @@
         <p>Welcome back,<b>{{ session.username }}</b>!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-    {% if orderid == 0 %}
+    {% if orderid|length == 0 %}
     <h3>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h3>
     {% else %}
-    <h3 style="margin-top:6em">OrderID:{{ orderid }}</h3>
+    <h3 style="margin-top:6em">OrderID:{{ orderid[0] }}</h3>
 
     <div class="table-wrapper">
         <table>
@@ -40,7 +40,10 @@
         </table>
     </div>
 <div>
-    <a type="button" class="button" onclick="alert('Successful!')" href="{{ url_for('search') }}">Place my order</a>
+    <form action="{{ url_for('cart') }}" method="post" class="button">
+        <input type="hidden" name="oid" value="{{ orderid[0] }}">
+        <input type="submit" name="btn" value="Place my order">
+    </form>
 </div>
     <h2>Recommendation</h2>
     <div class="table-wrapper">

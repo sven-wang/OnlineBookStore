@@ -136,6 +136,8 @@ def bookinfo(ISBN):
                 return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
+        elif request.form['btn'] == 'Confirm':
+            feedback = db.feedBackRank(ISBN, request.form['num'])
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
 
 @app.route('/user')

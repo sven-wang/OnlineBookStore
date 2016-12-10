@@ -50,6 +50,12 @@
 {% if FeedBack|length == 0 %}
 <h3>No feedback yet!</h3>
 {% else %}
+    <form action="{{ url_for('bookinfo') }}" method="post">
+        <h2>Feedbacks</h2>
+        <p>Select number of top Feedbacks:</p>
+        <input type="number" name="num" required style="width:2.5em;">
+        <input type="submit" name="btn" style="margin-left:1em" value="Confirm">
+    </form>
 <table border="1" style="text-align:center;" class="alt">
     <thead>
     <tr>

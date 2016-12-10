@@ -4,7 +4,7 @@ authors = "author"
 publisher = "pub"
 title = "jiuqi s life"
 subject = "sub"
-login_name = "wsy"
+login_name = "1"
 ISBN = "ISBN"
 dateTime = "12-12-1996"
 score = "4"
@@ -17,15 +17,14 @@ price = '10'
 keywords = 'life'
 copies = '1'
 format = 'softcover'
+oid = '20160003'
 
 sortBy = 'year'
 Desc_Asc = 'd'
-query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies \
-          FROM (SELECT ISBN, copies \
-                FROM Items i \
-                WHERE i. oid = (SELECT MAX(oid) \
-                      FROM Orders \
-                      WHERE login_name = '" + login_name + "' AND status = 'Processing')" \
-        ") info, Books \
-          WHERE info.ISBN = Books.ISBN"
+
+query = "UPDATE Orders " \
+        "SET status = 'Complete' AND date = CURDATE()" + \
+        "WHERE oid = " + str(oid) + ";"
+
+
 print query

@@ -66,9 +66,15 @@ class dbOperation:
                     FROM Orders \
                     WHERE login_name = " + login_name + " AND status = 'Processing')) info, Books \
                     WHERE info.ISBN = Books.ISBN"
+
+        queryOid = "SELECT MAX(oid) \
+                    FROM Orders \
+                    WHERE login_name = " + login_name + " AND status = 'Processing'"
         try:
             db = dbconnect.dbConnect()
-            return db.readDB(query)
+            oid = db.readDB(queryOid)
+            items = db.readDB(query)
+            return oid, items
         except Exception as ex:
             print ex.message
 
@@ -77,7 +83,7 @@ class dbOperation:
 
         query = "UPDATE Orders " \
                 "SET status = 'Complete' AND date = CURDATE()"  + \
-                "WHERE oid = " + str(oid) + ";"
+                "WHERE oid = " + oid + ";"
         try:
             db = dbconnect.dbConnect()
             db.updateDB(query)

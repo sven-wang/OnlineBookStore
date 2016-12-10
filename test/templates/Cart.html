@@ -21,35 +21,36 @@
         <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{ url_for('userpage') }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
+        <p>Welcome back,<b>{{ session.username }}</b>!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
-        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
-    {% if orderid|length == 0 %}
-    <h1>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h1>
+    {% if orderid == 0 %}
+    <h3>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h3>
     {% else %}
-    <h1 style="margin-top:6em">OrderID:{{ orderid[0] }}</h1>
+    <h3 style="margin-top:6em">OrderID:{{ orderid }}</h3>
 
-    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
-        <table border="1" style="text-align:center;">
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><td>ISBN</td><td>sth</td><td>other</td></tr></thead>
+            <tbody>
             {% for o in orders %}
             <tr><td><a href="{{ url_for('bookinfo', ISBN=o[0]) }}">{{ o[0] }}</a></td><td>{{ o[1] }}</td><td>{{ o[2] }}</td></tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 <div>
-    <form action="{{ url_for('cart') }}" method="post" class="button">
-        <input type="hidden" name="oid" value="{{ orderid[0] }}">
-        <input name="btn" type="submit"" value="Place my order">
-    </form>
-    <!--<a type="button" class="button" onclick="alert('Successful!')" href="{{ url_for('search') }}">Place my order</a>-->
+    <a type="button" class="button" onclick="alert('Successful!')" href="{{ url_for('search') }}">Place my order</a>
 </div>
-    <h1>Recommendation</h1>
+    <h2>Recommendation</h2>
+    <div class="table-wrapper">
     <table>
+        <tbody>
         {% for r in rec %}
         <tr><a href="{{ url_for('bookinfo', ISBN=r[0]) }}">{{ r[0] }}</a></tr>
         {% endfor %}
-    </table>
+        </tbody>
+    </table></div>
     {% endif %}
 {% endif %}
 </body>

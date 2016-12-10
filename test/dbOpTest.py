@@ -22,10 +22,9 @@ oid = '20160003'
 sortBy = 'year'
 Desc_Asc = 'd'
 
-query = "SELECT oid, date, title, info.copies \
-                    FROM (SELECT oid, date, ISBN, copies \
-                          FROM Orders o NATURAL JOIN Items i \
-                          WHERE login_name = " + login_name + ") info, Books \
-                    WHERE info.ISBN = Books.ISBN "
+query = "SELECT * " \
+                 "FROM Feedbacks f, Rate r " \
+                 "WHERE r.rater_name = " + "'" + login_name + "' AND r.feedback_name = f.login_name AND f.ISBN = r.ISBN AND r.rater_name <> r.feedback_name;"
+
 
 print query

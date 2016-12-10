@@ -102,6 +102,8 @@ def search():
     if request.method == 'POST':
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'], request.form['order'], request.form['sequence'])
+        print entries
+
     return render_template('Search.html', entries=entries)
 
 @app.route('/logout')

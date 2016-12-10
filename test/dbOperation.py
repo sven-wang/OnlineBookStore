@@ -157,7 +157,7 @@ class dbOperation:
         # the list of all the feedbacks he/she ranked with respect to usefulness
         query4 = "SELECT * " \
                  "FROM Feedbacks f, Rate r " \
-                 "WHERE r.feedback_name = " + "'" + login_name + "' AND r.feedback_name = f.login_name AND f.ISBN = r.ISBN AND r.rater_name <> r.feedback_name;"
+                 "WHERE r.rater_name = " + "'" + login_name + "' AND r.feedback_name = f.login_name AND f.ISBN = r.ISBN AND r.rater_name <> r.feedback_name;"
 
         try:
             db = dbconnect.dbConnect()
@@ -267,16 +267,17 @@ class dbOperation:
             if Desc_Asc == 'd':
                 query += " Desc"
         elif sortBy == 'score':
-            query += " ORDER BY score"
+            query += " ORDER BY AVG(score)"
             if Desc_Asc == 'd':
                 query += ' Desc'
         else:
             pass
 
         try:
-            print(query)
+            print 'search query', query
             db = dbconnect.dbConnect()
             results = db.readDB(query)
+
             return results
         except Exception as ex:
             print ex.message

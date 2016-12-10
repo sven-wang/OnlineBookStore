@@ -94,7 +94,14 @@ WHERE LOWER(authors) LIKE LOWER("%author%") AND
       LOWER(subject) LIKE LOWER("%subject%")
 GROUP BY Books.ISBN
 #ORDER BY year DESC
-ORDER BY AVG(score) DESC
+ORDER BY AVG(score) DESC;
+
+
+SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)
+FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN
+GROUP BY Books.ISBN
+ORDER BY score Desc
+
 
 
 ## 9) Useful feedbacks
@@ -125,6 +132,8 @@ WHERE Orders.oid = Items.oid
       AND Items.ISBN = Books.ISBN
 GROUP BY Items.ISBN
 ORDER BY sum(copies) DESC;
+
+
 
 
 

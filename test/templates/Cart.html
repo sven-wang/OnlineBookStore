@@ -23,11 +23,12 @@
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
+        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
-    {% if orderid == 0 %}
+    {% if orderid|length == 0 %}
     <h1>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h1>
     {% else %}
-    <h1 style="margin-top:6em">OrderID:{{ orderid }}</h1>
+    <h1 style="margin-top:6em">OrderID:{{ orderid[0] }}</h1>
 
     <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
         <table border="1" style="text-align:center;">
@@ -37,10 +38,11 @@
         </table>
     </div>
 <div>
-    <form>
-        
+    <form action="{{ url_for('cart') }}" method="post" class="button">
+        <input type="hidden" name="oid" value="{{ orderid[0] }}">
+        <input name="btn" type="submit"" value="Place my order">
     </form>
-    <a type="button" class="button" onclick="alert('Successful!')" href="{{ url_for('search') }}">Place my order</a>
+    <!--<a type="button" class="button" onclick="alert('Successful!')" href="{{ url_for('search') }}">Place my order</a>-->
 </div>
     <h1>Recommendation</h1>
     <table>

@@ -75,7 +75,7 @@ def login():
             print ("\'" in request.form['login_name'])
             # 过滤非法字符
             if "\'" in request.form['login_name']:
-                error = "no 1"
+                error = "no \'"
                 return render_template('HomePage.html', error=error)
             user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
                              % (request.form['login_name'], request.form['passwords']))
@@ -141,6 +141,7 @@ def bookinfo(ISBN):
 
 @app.route('/user?=<string:USERNAME>')
 def userpage(USERNAME):
+    error = None
     db = dbOperation.dbOperation()
     account_info, order_history, feedback_history, feedback_rate = db.userRecord(USERNAME)
     if order_history == None:
@@ -149,13 +150,17 @@ def userpage(USERNAME):
         feedback_history = []
     if feedback_rate == None:
         feedback_rate = []
-    return render_template('UserPage.html', A=account_info[0], O=order_history, H=feedback_history, R=feedback_rate)
+    return render_template('UserPage.html', A=account_info[0], O=order_history, H=feedback_history, R=feedback_rate, error=error)
 
-@app.route('/cart')
+@app.route('/cart', methods=['GET', 'POST'])
 def cart():
+    error = None
     db = dbOperation.dbOperation()
     orderid, cart = db.viewCart(session['username'])
-    return render_template('Cart.html', orders=cart, orderid=orderid)
+    if request.method == 'POST':
+        db.checkOut(request.form['oid'])
+        return redirect(url_for('search'))
+    return render_template('Cart.html', orders=cart, orderid=orderid[0], error=error)
 
 @app.route('/manager', methods=['GET', 'POST'])
 def manager():

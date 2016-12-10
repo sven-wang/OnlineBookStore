@@ -122,7 +122,6 @@ class dbOperation:
         query = "INSERT INTO Books " \
                 "VALUES ('"+ISBN+"', '"+title+"', '"+authors+"', '"+publisher+"', "+year+", "+copies+", " \
                 +price+", '"+format+"', '"+keywords+"', '"+subject+"');"
-        print query
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)

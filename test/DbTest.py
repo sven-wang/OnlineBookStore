@@ -197,7 +197,6 @@ def newbook():
 def recommendation(ISBN):
     db = dbOperation.dbOperation()
     rec=db.getRecommendation(ISBN, session['username'])
-    print rec
-    print rec[0]
-    print rec[0][0]
+    if rec == None:
+        rec = []
     return render_template('Recommendation.html', rec=rec)

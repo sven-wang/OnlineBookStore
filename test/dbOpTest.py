@@ -23,8 +23,7 @@ sortBy = 'year'
 Desc_Asc = 'd'
 
 query = "UPDATE Orders " \
-        "SET status = 'Complete' AND date = CURDATE()" + \
-        "WHERE oid = " + str(oid) + ";"
-
+        "SET status = 'Complete' AND date = CURDATE() " + \
+        "WHERE oid = " + oid
 
 print query

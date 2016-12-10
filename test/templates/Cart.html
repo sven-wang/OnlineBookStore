@@ -24,13 +24,13 @@
         <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.png') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        <p>Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
+        <p style="margin-right: 5em; text-align: right">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
     {% if orderid == None %}
     <h3 style="margin-top: 10em">There is nothing in your cart! <a href="{{ url_for('search') }}">Go back</a></h3>
     {% else %}
-    <h3 style="margin-top:6em">OrderID:{{ orderid[0] }}</h3>
+    <h3 style="margin-top:6em">OrderID:{{ orderid }}</h3>
 
     <div class="table-wrapper">
         <table class="alt">
@@ -44,7 +44,7 @@
     </div>
 <div>
     <form action="{{ url_for('cart') }}" method="post" class="button">
-        <input type="hidden" name="oid" value="{{ orderid[0] }}">
+        <input type="hidden" name="oid" value="{{ orderid }}">
         <input type="submit" name="btn" value="Place my order">
     </form>
 </div>

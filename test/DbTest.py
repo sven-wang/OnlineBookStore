@@ -139,6 +139,9 @@ def bookinfo(ISBN):
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Confirm':
+            if int(request.form['num']) < 1:
+                error = "Please enter a number above 1!!!"
+                return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
             feedback = db.feedBackRank(ISBN, request.form['num'])
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
 

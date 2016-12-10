@@ -107,6 +107,7 @@ class dbOperation:
         print '1'
 
         queryOrders = "select ISBN, copies from Items where oid = " + oid;
+        print 'queryOrders',queryOrders
 
         print '2'
 

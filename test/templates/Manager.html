@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 <body>
-    <div style="margin:1em auto 9em auto;width:25em;height:18em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <div style="margin:1em auto 9em auto;width:25em;height:20em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
         <div>
             <h3 style="text-align:center;margin-top: 1em">Manager</h3>
         </div>
@@ -23,10 +23,10 @@
             <form action="{{ url_for('manager') }}" method="post">
                 <div class="row uniform 50%">
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                            <input size="15" type="text" name="managername" value="" placeholder="Manager Name" required>
+                            <input style="margin-top: 1em" size="15" type="text" name="managername" value="" placeholder="Manager Name" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                            <input size="15" type="password" name="password" value="" placeholder="Password" required>
+                            <input style="margin-top: 1em" size="15" type="password" name="password" value="" placeholder="Password" required>
                     </div>
                     <div style="margin-top:1em;align-content: center">
                         <input class="button" size="40" type="submit" name="btn" value="login">

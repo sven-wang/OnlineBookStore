@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left:2em; margin-right:2em">
 {% if not session.logged_in %}
 <p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
 {% else %}
@@ -33,7 +33,7 @@
     <h3 style="margin-top:6em">OrderID:{{ orderid[0] }}</h3>
 
     <div class="table-wrapper">
-        <table>
+        <table class="alt">
             <thead><tr><td>ISBN</td><td>sth</td><td>other</td></tr></thead>
             <tbody>
             {% for o in orders %}

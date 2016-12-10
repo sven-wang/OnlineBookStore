@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left:2em; margin-right:2em">
 {% if not session.logged_in %}
 <p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
 {% else %}
@@ -29,7 +29,7 @@
         {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
 <div style="margin-top:5em;"></div>
-<div style="margin-left:2em; margin-right:2em">
+<div>
 <h2>{{ BookInfo[1] }}</h2>
 <h3>ISBN: {{ BookInfo[0] }}</h3>
 <h3>Author(s): {{ BookInfo[2] }}</h3>

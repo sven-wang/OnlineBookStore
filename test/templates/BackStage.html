@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left:2em; margin-right:2em">
 {% if not session.manager_logged_in %}
 <h3>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h3>
 {% else %}
@@ -27,7 +27,7 @@
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.managername }}!　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-<div style="margin-top:11em; margin-left:2em; margin-right:2em">
+<div style="margin-top:11em">
     {% if session.manager_logged_in %}
     <h2>New Arrival</h2>
     <form action="{{ url_for('backstage') }}" method=post>

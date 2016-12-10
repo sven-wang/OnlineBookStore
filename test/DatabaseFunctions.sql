@@ -177,10 +177,10 @@ GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT 5;
 
 
 ## 10) Book recommendation
-SELECT ISBN, sum(copies)
-FROM Orders, Items
+SELECT Items.ISBN, Books.title, sum(Items.copies)
+FROM Orders, Items, Books
 WHERE Orders.oid = Items.oid
-AND ISBN in (SELECT distinct ISBN
+AND Items.ISBN in (SELECT distinct ISBN
              FROM (SELECT distinct login_name
              		FROM Orders, Items
                		WHERE Orders.oid = Items.oid
@@ -191,8 +191,9 @@ AND Orders.login_name in (SELECT distinct login_name
 	             			FROM Orders, Items
 	               			WHERE Orders.oid = Items.oid
 	                    	AND ISBN = "9781449389673")
-GROUP BY ISBN
-ORDER BY sum(copies) DESC
+AND Books.ISBN = Items.ISBN
+GROUP BY Items.ISBN
+ORDER BY sum(Items.copies) DESC;
 
 ## 11) Statistics
 

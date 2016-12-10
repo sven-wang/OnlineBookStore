@@ -7,9 +7,9 @@
     <!--style type=text/css>
     a{ text-decoration:none;}
     </style-->
-    <!--link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
     <link rel="stylesheet" href="css/skel.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
     <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
@@ -17,44 +17,52 @@
 
 <body>
 {% if not session.manager_logged_in %}
-<h2>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h2>
+<h3>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h3>
 {% else %}
-<div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
+<header style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
         <a href="{{ url_for('backstage') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.managername }}!　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
-</div>
-<div>
-    <form action="{{ url_for('newbook') }}" method=post>
-        <div>
-        <div>ISBN　 <input type="search" size="30%" name="isbn" required></div>
-        <div>Title<input type="search" size="30%" name="title" required></div>
-        <div>Authors<input type="search" size="30%" name="authors" required></div>
-        <div>Publisher<input type="search" size="30%" name="publisher" required></div>
-        <div>Year<input type="search" size="30%" name="year" required></div>
-        <div>Copies<input type="search" size="30%" name="copies" required></div>
-        <div>Price<input type="search" size="30%" name="price" required></div>
-        <div>Keywords<input type="search" size="30%" name="keywords" required></div>
-        <div>Subject<input type="search" size="30%" name="subject" required></div>
-            <div>Format</div>
-            <div class="4u 12u$(2)">
-                <input type="radio" id="softcover" name="format" value ="softcover" checked="" required>
-                <label for="softcover">Softcover</label>
-            </div>
-            <div class="4u 12u$(2)">
-                <input type="radio" id="hardcover" name="format" value ="hardcover" checked="">
-                <label for="hardcover">Hardcover</label>
-            </div>
-        <div>
-            <input type="submit" name="btn" value="submit">
-        </div>
+</header>
 
+<div style="margin:1em auto 9em auto;width:30em;height:50em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <form action="{{ url_for('newbook') }}" method=post>
+        <div style="text-indent:6.5em;margin-top:10%;margin-left: 10%;margin-right: 10%">
+            <div class="row uniform 50%">
+                <div><input class="6u 24u$(4)" type="text" size="50%" name="isbn" placeholder="ISBN" required></div>
+                <div><input class="6u$ 12u$(4)" type="text" size="50%" name="title" placeholder="Title" required></div>
+                <div><input class="6u 12u$(2)" type="text" size="50%" name="authors" placeholder="Authors" required></div>
+                <div><input class="6u$ 12u$(2)" type="text" size="50%" name="publisher" placeholder="Publisher" required></div>
+                <div><input class="6u 12u$(2)" type="text" size="50%" name="year" placeholder="Year" required></div>
+                <div><input class="6u$ 12u$(2)" type="text" size="50%" name="copies" placeholder="Copies" required></div>
+                <div><input class="6u 12u$(2)" type="text" size="50%" name="price" placeholder="Price" required></div>
+                <div><input class="6u$ 12u$(2)" type="text" size="50%" name="keywords" placeholder="Keywords" required></div>
+                <div><input class="6u 12u$(2)" type="text" size="50%" name="subject" placeholder="Subject" required></div>
+
+            </div>
+        </div>
+        <div style="margin-top:5%;margin-left: 10%;margin-right: 10%">
+            <div class="row uniform 50%">
+                <div class="6u 12u$(2)">
+                    <input type="radio" id="softcover" name="format" value ="softcover" checked="" required>
+                    <label for="softcover">Softcover</label>
+                </div>
+                <div class="6u$ 12u$(2)">
+                    <input type="radio" id="hardcover" name="format" value ="hardcover" checked="">
+                    <label for="hardcover">Hardcover</label>
+                </div>
+                <div style="align-content: center">
+                    <input class="button" type="submit" name="btn" value="submit">
+                </div>
+            </div>
         </div>
     </form>
-    <div style="text-align:center;width:200px;line-height:2em;background-color:#e5e5e5;"><a href="{{ url_for('backstage') }}">No more books to add</a></div>
+    <div style="text-align:center;width:200px;line-height:2em;background-color:#e5e5e5;">
+        <a href="{{ url_for('backstage') }}">No more books to add</a>
+    </div>
 </div>
 {% endif %}
 </body>

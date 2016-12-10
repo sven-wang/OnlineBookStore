@@ -21,7 +21,7 @@
         <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{ url_for('userpage') }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
+        <p style="text-align:right;margin-right:5em;">Welcome, {{ session.username }}!　|　<a href="{{ url_for('userpage') }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
 <div style="margin-top:6em;">

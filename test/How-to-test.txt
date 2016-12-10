@@ -10,3 +10,8 @@
  * Serving Flask app "test.DbTest"
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 则可将地址http://127.0.0.1:5000/复制到浏览器地址栏内打开
+
+
+
+
+export FLASK_APP=DbTest.py

@@ -7,12 +7,12 @@
     <!--style type=text/css>
     a{ text-decoration:none;}
     </style-->
-    <!--link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/-->
-    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
-    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
+    <!--<link rel="stylesheet" href="css/skel.css" type="text/css"/>-->
+    <!--<link rel="stylesheet" href="css/style.css" type="text/css"/>-->
+    <!--<link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>-->
 </head>
 <body>
 <header style="top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
@@ -28,7 +28,7 @@
   <!--{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}-->
 <h2 style="text-align:center;">Welcome!</h2>
 <div style="margin:1em auto 9em auto;width:51em;height:31.2em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
-    <div style="float:left;width:25em;height:31em;border-right:3px solid #808080;">
+    <div style="float:left;width:25em;height:31.5em;border-right:3px solid #808080;">
         <div>
             <h3 style="text-align:center;margin-top: 6em">Login</h3>
         </div>
@@ -36,19 +36,19 @@
             <form action="{{ url_for('login') }}" method=post style="align:center">
                 <div class="row uniform 50%">
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="login_name" id="login_name" value="" placeholder="Username" required>
+                        <input style="margin-top: 1em" size="80" type="text" name="login_name" id="login_name" value="" placeholder="Username" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="passwords" id="passwords" value="" placeholder="Password" required>
+                        <input style="margin-top: 1em" size="80" type="text" name="passwords" id="passwords" value="" placeholder="Password" required>
                     </div>
                     <div style="align-content: center">
-                        <input class="button" size="40" type="submit" name="btn" value="Login">
+                        <input class="button" style="margin-top: 1em" size="40" type="submit" name="btn" value="Login">
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div style="float:left;width:25em;height:31em; margin-top:1em">
+    <div style="float:left;width:25em;height:31.5em; margin-top:1em">
         <div>
             <h3 style="text-align:center;">Register</h3>
         </div>
@@ -59,22 +59,22 @@
                         <input size="80" type="text" name="login_name" value="" placeholder="Username" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="full_name" value="" placeholder="Full name" required>
+                        <input size="80" style="margin-top: 1em" type="text" name="full_name" value="" placeholder="Full name" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="passwords" value="" placeholder="Password" required>
+                        <input size="80" style="margin-top: 1em" type="text" name="passwords" value="" placeholder="Password" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="card_num" value="" placeholder="Card number" required>
+                        <input size="80" style="margin-top: 1em" type="text" name="card_num" value="" placeholder="Card number" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="address" value="" placeholder="Address" required>
+                        <input size="80" style="margin-top: 1em" type="text" name="address" value="" placeholder="Address" required>
                     </div>
                     <div class="12u$ 12u$(8)" style="align-content: center">
-                        <input size="80" type="text" name="phone_num" value="" placeholder="Phone number" required>
+                        <input size="80" style="margin-top: 1em" type="text" name="phone_num" value="" placeholder="Phone number" required>
                     </div>
                     <div style="align-content: center">
-                        <input class="button" size="40" type="submit" name="btn" value="Create">
+                        <input class="button" style="margin-top: 1em" size="40" type="submit" name="btn" value="Create">
                     </div>
                 </div>
             </form>

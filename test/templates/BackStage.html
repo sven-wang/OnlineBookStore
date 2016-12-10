@@ -1,17 +1,23 @@
 <!doctype html>
 <head>
 <title>BackLah</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}"-->
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style type=text/css>
+    <!--style type=text/css>
     a{ text-decoration:none;}
-    </style>
+    </style-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left:2em; margin-right:2em">
 {% if not session.manager_logged_in %}
-<h1>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h1>
+<h3>Please <a href="{{ url_for('manager') }}">log in</a> as a manager first!</h3>
 {% else %}
 <div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
@@ -21,19 +27,26 @@
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.managername }}!　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-<div style="margin-top:11em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+<div style="margin-top:11em">
     {% if session.manager_logged_in %}
+    <h2>New Arrival</h2>
     <form action="{{ url_for('backstage') }}" method=post>
-        <div style="margin-top:0.5em;margin-left:20px;">ISBN　 <input type="search" size="30%" name="isbn"></div>
-        <div style="margin-top:-1em;margin-left:50%;">Copies<input type="search" size="30%" name="copies"></div>
-        <input style="height:2em;margin-left:80%;margin-top:-2em;font-size:1.6em;" type="submit" name="btn" value="Submit">
+        <div class="6u$">ISBN　
+            <input  type="text" name="isbn" placeholder="ISBN">
+        </div>
+        <div class="6u$">Copies
+            <input type="text" size="30%" name="copies" placeholder="Copies">
+        </div>
+        <input type="submit" name="btn" value="Submit" style="margin-top:1em">
     </form>
-    <div style="text-align:center;width:150px;line-height:2em;background-color:#e5e5e5;"><a href="{{ url_for('newbook') }}">Add new books!</a></div>
-    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <h2><a href="{{ url_for('newbook') }}">Add new books</a></h2>
+    <h2>Statistics</h2>
+    <div>
+        <h3>Most Popular Books</h3>
         {% if books == None %}
-        <p>No records!</p>
+        <h4>No records!</h4>
         {% else %}
-        <table border="1" style="text-align:center;">
+        <table class="alt 8u$" border="1" style="text-align:center;">
             <tr>
                 <td>ISBN</td>
                 <td>Sales</td>
@@ -47,11 +60,12 @@
         </table>
         {% endif %}
     </div>
-    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <div>
+        <h3>Most Popular Authors</h3>
         {% if authors == None %}
-        <p>No records!</p>
+        <h4>No records!</h4>
         {% else %}
-        <table border="1" style="text-align:center;">
+        <table class="alt 9u$" border="1" style="text-align:center;">
             <tr>
                 <td>Author</td>
                 <td>Sales</td>
@@ -65,11 +79,12 @@
         </table>
         {% endif %}
     </div>
-    <div style="margin-top:1em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
+    <div>
+        <h3>Most Popular Publishers</h3>
         {% if publishers == None %}
-        <p>No records!</p>
+        <h4>No records!</h4>
         {% else %}
-        <table border="1" style="text-align:center;">
+        <table class="alt 9u$" border="1" style="text-align:center;">
             <tr>
                 <td>Publisher</td>
                 <td>Sales</td>
@@ -84,7 +99,7 @@
         {% endif %}
     </div>
     {% else %}
-    <p>Please log in first!</p>
+    <h2>Please log in first!</h2>
     {% endif %}
 </div>
 {% endif %}

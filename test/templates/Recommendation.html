@@ -31,6 +31,9 @@
 
 </div>
 <div style="margin-top:6em;">
+    {% if rec|length == 0 %}
+    <h1 style="margin-top:8em;">No Reccomendations for you!</h1>
+    {% else %}
     <h1>Recommendations:</h1>
     <table border="1">
         <tr>
@@ -44,6 +47,7 @@
         </tr>
     {% endfor %}
     </table>
+    {% endif %}
 </div>
 {% endif %}
 </body>

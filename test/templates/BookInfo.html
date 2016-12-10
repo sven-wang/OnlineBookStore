@@ -1,15 +1,21 @@
 <!doctype html>
 <head>
 <title>InfoLah</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}"-->
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style type=text/css>
+    <!--style type=text/css>
     a{ text-decoration:none;}
-    </style>
+    </style-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left:2em; margin-right:2em">
 {% if not session.logged_in %}
 <p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
 {% else %}
@@ -22,35 +28,39 @@
     </div>
         {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
-<div style="margin-top:6em;"></div>
-<h2>{{ BookInfo[0] }}</h2>
+<div style="margin-top:5em;"></div>
+<div>
 <h2>{{ BookInfo[1] }}</h2>
-<h2>{{ BookInfo[2] }}</h2>
-<h2>{{ BookInfo[3] }}</h2>
-<h2>{{ BookInfo[4] }}</h2>
-<h2>{{ BookInfo[5] }}</h2>
-<h2>{{ BookInfo[6] }}</h2>
-<h2>{{ BookInfo[7] }}</h2>
-<h2>{{ BookInfo[8] }}</h2>
-<h2>{{ BookInfo[9] }}</h2>
-<div style="margin-top:0.5em;text-align:center;line-height:2em;width:125px;background-color:#e7e7e7;">
+<h3>ISBN: {{ BookInfo[0] }}</h3>
+<h3>Author(s): {{ BookInfo[2] }}</h3>
+<h3>Publisher: {{ BookInfo[3] }}</h3>
+<h3>Year: {{ BookInfo[4] }}</h3>
+<h3>Copies: {{ BookInfo[5] }}</h3>
+<h3>Price: {{ BookInfo[6] }}</h3>
+<h3>Format: {{ BookInfo[7] }}</h3>
+<h3>Keywords: {{ BookInfo[8] }}</h3>
+<h3>Subject: {{ BookInfo[9] }}</h3>
+<div>
     <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
         <input type="number" name="copies" min="1" step="1" value="1">
-        <input type="submit" name="btn" value="Add to Cart!">
+        <div style="margin-top:1em">
+        <input type="submit" name="btn" value="Add to Cart!"></div>
     </form>
 </div>
 {% if FeedBack|length == 0 %}
-<h1>No feedback yet!</h1>
+<h3>No feedback yet!</h3>
 {% else %}
-<table border="1" style="text-align:center;">
+<table border="1" style="text-align:center;" class="alt">
+    <thead>
     <tr>
         <td>Name</td>
         <td>Feedback</td>
         <td>Scores</td>
         <td>Usefulness</td>
         <td>Date</td>
-        <td>Is it useful?</td>
     </tr>
+    </thead>
+    <tbody>
     {% for fb in FeedBack %}
     <tr>
         <td>{{ fb[0] }}</td>
@@ -58,34 +68,58 @@
         <td>{{ fb[2] }}</td>
         <td>{{ fb[3] }}</td>
         <td>{{ fb[4] }}</td>
-        <td>
-            <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
+        </tr>
+    <tr>
+        <td colspan="5">
+            <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post" style="margin-bottom: 0em">
                 <input type="hidden" name="ISBN" value="{{ BookInfo[0] }}">
                 <input type="hidden" name="fbn" value="{{ fb[0] }}">
-                <input type="radio" name="scores" value="0" required>0
-                <input type="radio" name="scores" value="1">1
-                <input type="radio" name="scores" value="2">2
-                <input type="submit" name="btn" value="Rate!">
+                <div class="16u 10u$(3)" style="text-align:left">
+                    <p style="margin-bottom: 0em">Is it useful?
+                    <input type="radio" id="0" name="scores"  value="0" required>
+                    <label for="0">0</label>
+                    <input type="radio" id="1" name="scores" value="1" >
+                    <label for="1">1</label>
+                    <input type="radio" id="2" name="scores" value="2" >
+                    <label for="2">2</label>
+                    <input type="submit" name="btn" value="Rate!" style="margin-left: 1em">
+                </p></div>
             </form>
         </td>
     </tr>
     {% endfor %}
+    </tbody>
 </table>
 {% endif %}
 
 <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post" style="margin-top:1em;">
-    <textarea name="feedback" rows="8" cols="40" required></textarea>
-    <input type="radio" name="score" value="1" required>1
-    <input type="radio" name="score" value="2">2
-    <input type="radio" name="score" value="3">3
-    <input type="radio" name="score" value="4">4
-    <input type="radio" name="score" value="5">5
-    <input type="radio" name="score" value="6">6
-    <input type="radio" name="score" value="7">7
-    <input type="radio" name="score" value="8">8
-    <input type="radio" name="score" value="9">9
-    <input type="radio" name="score" value="10">10
-    <input type="submit" name="btn" value="Submit">
+    <textarea name="feedback" rows="8" cols="40" placeholder="Enter your feedback" required></textarea>
+    <div class="16u 10u$(10)" style="text-align:left; margin-top:1em">
+        <input type="radio" id="f1" name="score" value="1" required>
+        <label for="f1">1</label>
+        <input type="radio" id="f2" name="score" value="2">
+        <label for="f2">2</label>
+        <input type="radio" id="f3" name="score" value="3">
+        <label for="f3">3</label>
+        <input type="radio" id="f4" name="score" value="4">
+        <label for="f4">4</label>
+        <input type="radio" id="f5" name="score" value="5">
+        <label for="f5">5</label>
+        <input type="radio" id="f6" name="score" value="6">
+        <label for="f6">6</label>
+        <input type="radio" id="f7" name="score" value="7">
+        <label for="f7">7</label>
+        <input type="radio" id="f8" name="score" value="8">
+        <label for="f8">8</label>
+        <input type="radio" id="f9" name="score" value="9">
+        <label for="f9">9</label>
+        <input type="radio" id="f10" name="score" value="10">
+        <label for="f10">10</label>
+    </div>
+    <div style="margin-top:1em">
+        <input type="submit" name="btn" value="Submit">
+    </div>
 </form>
+</div>
 {% endif %}
 </body>

@@ -1,15 +1,22 @@
 <!doctype html>
 <head>
 <title>BuyLah</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style type=text/css>
-    a{ text-decoration:none;}
-    </style>
+<!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">-->
+<!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">-->
+<!--<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">-->
+    <!--<style type=text/css>-->
+    <!--a{ text-decoration:none;}-->
+    <!--</style>-->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
-<body>
+<body style="margin-left: 2em; margin-right: 2em">
 {% if not session.logged_in %}
 <p>Please <a href="{{ url_for('login') }}">log in</a> first!</p>
 {% else %}
@@ -21,8 +28,9 @@
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-<table border="1" style="margin-top:8em;">
-    <caption>Account Info</caption>
+<h3 style="margin-top:6em;text-align: center"> Your Account Information </h3>
+<table class="alt" style="margin-top:2em;">
+
     <tr>
         <th>Login Name</th>
         <td>{{ A[0] }}</td>
@@ -50,36 +58,45 @@
 </table>
 
 {% if O|length == 0 %}
-<h1 style="margin-top:8em;">No order_history yet!</h1>
+<h3 style="margin-top:8em;">No order_history yet!</h3>
 {% else %}
-    <table border="1" style="text-align:center;margin-top:8em;">
-        <caption>Order History</caption>
-        <tr>
-            <td>OrderID</td>
-            <td>Date</td>
-            <td>Status</td>
-        </tr>
-        {% for o in O %}
-        <tr>
-            <td>{{ o[0] }}</td>
-            <td>{{ o[2] }}</td>
-            <td>{{ o[3] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <h3 style="margin-top:6em;text-align: center"> Your Feedback History </h3>
+    <div class="table-wrapper">
+        <table class="alt" style="text-align:center;margin-top:2em;">
+            <thead>
+            <tr>
+                <td>OrderID</td>
+                <td>Date</td>
+                <td>Book Name</td>
+                <td>Copies</td>
+            <tr>
+            </thead>
+            <tbody>
+            {% for o in O %}
+            <tr>
+                <td>{{ o[0] }}</td>
+                <td>{{ o[1] }}</td>
+                <td>{{ o[2] }}</td>
+                <td>{{ o[3] }}</td>
+            </tr>
+            {% endfor %}
+            <tbody>
+        </table>
+    </div>
 {% endif %}
 
 {% if H|length == 0 %}
     <h1 style="margin-top:8em;">No feedback_history yet!</h1>
 {% else %}
-    <table border="1" style="text-align:center;margin-top:8em;">
-        <caption>Feedback History</caption>
-        <tr>
+    <h3 style="margin-top: 8em; text-align: center"> Your Feedback History</h3>
+    <table class="alt" style="text-align:center;margin-top:2em;">
+
+        <thead>
             <td>ISBN</td>
             <td>Date</td>
             <td>Score</td>
             <td>Feedback</td>
-        </tr>
+        </thead>
         {% for h in H %}
         <tr>
             <td><a href="{{ url_for('bookinfo', ISBN=h[1]) }}">{{ h[1] }}</a></td>
@@ -92,18 +109,18 @@
 {% endif %}
 
 {% if R|length == 0 %}
-<h1 style="margin-top:8em;">No feedback_rate yet!</h1>
+<h3 style="margin-top:8em;">No feedback_rate yet!</h3>
 {% else %}
-    <table border="1" style="text-align:center;margin-top:8em;">
-        <caption>Feedback Rate</caption>
-        <tr>
+    <h3 style="margin-top: 8em; text-align: center"> Feedbacks You Rated</h3>
+    <table class="alt" style="text-align:center;margin-top:2em;">
+        <thead>
             <td>ISBN</td>
             <td>Date</td>
             <td>Scores</td>
             <td>Feedback</td>
             <td>Who rates</td>
             <td>Usefulness</td>
-        </tr>
+        </thead>
         {% for r in R %}
         <tr>
             <td><a href="{{ url_for('bookinfo', ISBN=r[1]) }}">{{ r[1] }}</a></td>

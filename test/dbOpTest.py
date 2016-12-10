@@ -21,6 +21,7 @@ oid = '20160003'
 
 sortBy = 'year'
 Desc_Asc = 'd'
+
 query = "SELECT Items.ISBN, Books.title, sum(Items.copies) \
                 FROM Orders, Items, Books \
                 WHERE Orders.oid = Items.oid \

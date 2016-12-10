@@ -80,11 +80,10 @@ VALUES (login_name, full_name, passwords, card_num, address, phone_num);
 ## 2) Ordering
 # Ordering Function
 #check most recent order status
-SELECT status
-FROM (SELECT login_name, status, oid
-	  FROM Orders
-  	  WHERE login_name = "login_name")
-WHERE oid = MAX(oid)
+
+SELECT status FROM (SELECT status, oid FROM Orders WHERE login_name = '1') userOrders
+ORDER BY oid Desc
+LIMIT 1;
 
 # if status == 'Completed'
   # get max oid

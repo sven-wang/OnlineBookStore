@@ -44,10 +44,10 @@ class dbOperation:
             db = dbconnect.dbConnect()
             # checking user's current order status first
             status = db.readDB(query1)
-            print status
+            print 'status',status
 
 
-            if status[0][0] == 'Complete':
+            if not status or status[0][0] == 'Complete' :
 
                 # get global max oid
                 oid = db.readDB(query2)[0][0]
@@ -75,16 +75,17 @@ class dbOperation:
                     FROM Items i \
                     WHERE i. oid = (SELECT MAX(oid) \
                     FROM Orders \
-                    WHERE login_name = " + login_name + " AND status = 'Processing')) info, Books \
+                    WHERE login_name = '" + login_name + "' AND status = 'Processing')) info, Books \
                     WHERE info.ISBN = Books.ISBN"
 
         queryOid = "SELECT MAX(oid) \
                     FROM Orders \
-                    WHERE login_name = " + login_name + " AND status = 'Processing'"
+                    WHERE login_name = '" + login_name + "' AND status = 'Processing'"
         try:
             db = dbconnect.dbConnect()
             oid = db.readDB(queryOid)
             items = db.readDB(query)
+            print 'items',items
             return oid, items
         except Exception as ex:
             print ex.message
@@ -145,7 +146,7 @@ class dbOperation:
         query2 = "SELECT oid, date, title, info.copies \
                     FROM (SELECT oid, date, ISBN, copies \
                           FROM Orders o NATURAL JOIN Items i \
-                          WHERE login_name = " + login_name + ") info, Books \
+                          WHERE login_name = '" + login_name + "') info, Books \
                     WHERE info.ISBN = Books.ISBN "
 
         # his/her full history of feedbacks

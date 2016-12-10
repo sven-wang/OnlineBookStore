@@ -38,12 +38,15 @@
     <table border="1">
         <tr>
             <td>ISBN</td>
+            <td>Title</td>
             <td>Sales</td>
         </tr>
     {% for r in rec %}
         <tr>
             <td><a href="{{ url_for('bookinfo', ISBN=r[0]) }}">{{ r[0] }}</a></td>
             <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+
         </tr>
     {% endfor %}
     </table>

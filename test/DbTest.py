@@ -73,21 +73,27 @@ def login():
             db = get_db()
             user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
                              % (request.form['login_name'], request.form['passwords']))
+            print request.form['login_name']
+            print ("\'" in request.form['login_name'])
+            if "\'" in request.form['login_name']:
+                error = "no 1"
+                return render_template('HomePage.html', error=error)
             if user[0][0] == 0L:
-                error = 'Invalid'
+                error = "Invalid"
             else:
                 session['logged_in'] = True
                 session['username'] = request.form['login_name']
                 # print session['username']
                 flash('You were logged in. BuyLah！')
                 return redirect(url_for('search'))
-        if request.form['btn'] == 'Create':
+        elif request.form['btn'] == 'Create':
             # print 123456789
             db = dbOperation.dbOperation()
             db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
             # message = 'Create Successfully'
             return redirect(url_for('login'))
-        return render_template('error.html')
+        else:
+            return render_template('error.html')
     return render_template('HomePage.html', error=error)
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -107,6 +113,7 @@ def logout():
 
 @app.route('/bookinfo?=<string:ISBN>', methods=['GET', 'POST'])
 def bookinfo(ISBN):
+    error = None
     nfeedback = 5
     db = dbOperation.dbOperation()
     info = db.searchISBN(ISBN)
@@ -115,7 +122,12 @@ def bookinfo(ISBN):
         feedback = []
     if request.method == 'POST':
         if request.form['btn'] == 'Add to Cart!':
-            db.ordering(session['username'], ISBN) 
+            if int(request.form['copies']) > int(info[0][5]):
+                error = "not enough copies"
+                return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
+            print session['username'], ISBN, request.form['copies']
+            db.ordering(session['username'], ISBN, request.form['copies'])
+            print "success"
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
@@ -123,7 +135,7 @@ def bookinfo(ISBN):
         elif request.form['btn'] == 'Rate!':
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
-    return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback)
+    return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
 
 @app.route('/user?=<string:USERNAME>')
 def userpage(USERNAME):

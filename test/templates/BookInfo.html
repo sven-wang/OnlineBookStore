@@ -20,6 +20,7 @@
     <div style="text-align: right;">
         <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
+        {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
 <div style="margin-top:6em;"></div>
 <h2>{{ BookInfo[0] }}</h2>
@@ -34,7 +35,7 @@
 <h2>{{ BookInfo[9] }}</h2>
 <div style="margin-top:0.5em;text-align:center;line-height:2em;width:125px;background-color:#e7e7e7;">
     <form action="{{ url_for('bookinfo', ISBN=BookInfo[0]) }}" method="post">
-        <input type="text" maxlength="{{ BookInfo[5] }}" value="1">
+        <input type="number" name="copies" min="1" step="1" value="1">
         <input type="submit" name="btn" value="Add to Cart!" onclick="alert('Successful!')">
     </form>
 </div>

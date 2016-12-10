@@ -131,6 +131,9 @@ def bookinfo(ISBN):
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Rate!':
+            if session['username'] == request.form['fbn']:
+                error = "You can't rate for feedbacks rated by yourself!"
+                return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)

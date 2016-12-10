@@ -102,7 +102,7 @@ LIMIT 1;
   FROM Orders
   WHERE login_name = "login_name"
   # insert new item under current oid
-  INSERT INTO Items(oid, "ISBN", copies)
+  INSERT INTO Items VALUES (oid, "ISBN", copies)
 
 #ViewCart Function
 SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies
@@ -118,12 +118,14 @@ WHERE info.ISBN = Books.ISBN
 # his/her account information
 SELECT *
 FROM Customers
-WHERE login_name = "login_name"
+WHERE login_name = "login_name";
 
 # his/her full history of orders
-SELECT *
-FROM Orders
-WHERE login_name = "login_name"
+SELECT oid, date, title, info.copies
+FROM (SELECT oid, date, ISBN, copies
+      FROM Orders o NATURAL JOIN Items i
+      WHERE login_name = "login_name") info, Books
+WHERE info.ISBN = Books.ISBN;
 
 # his/her full history of feedbacks
 SELECT *

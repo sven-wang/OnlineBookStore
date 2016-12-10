@@ -94,9 +94,12 @@ class dbOperation:
         query = "UPDATE Orders " \
                 "SET status = 'Complete' , date = CURDATE() " + \
                 "WHERE oid = " + oid
+
+
         try:
             db = dbconnect.dbConnect()
             db.updateDB(query)
+            print 'checkout'
         except Exception as ex:
             print ex.message
 
@@ -109,9 +112,11 @@ class dbOperation:
                  "WHERE login_name = " + "'" + login_name + "';"
 
         # his/her full history of orders
-        query2 = "SELECT * " \
-                 "FROM Orders " \
-                 "WHERE login_name = " + "'" + login_name + "';"
+        query2 = "SELECT oid, date, title, info.copies \
+                    FROM (SELECT oid, date, ISBN, copies \
+                          FROM Orders o NATURAL JOIN Items i \
+                          WHERE login_name = " + login_name + ") info, Books \
+                    WHERE info.ISBN = Books.ISBN "
 
         # his/her full history of feedbacks
         query3 = "SELECT * " \

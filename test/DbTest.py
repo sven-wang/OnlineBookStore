@@ -183,7 +183,12 @@ def backstage(m=5):
     authors = db.popularAuthors(m)
     publishers = db.popularPublishers(m)
     if request.method == 'POST':
-        db.newArrival(request.form['isbn'], request.form['copies'])
+        if request.form['btn'] == "Submit":
+            db.newArrival(request.form['isbn'], request.form['copies'])
+        elif request.form['btn'] == "Confirm":
+            books = db.popularBooks(request.form['num'])
+            authors = db.popularAuthors(request.form['num'])
+            publishers = db.popularPublishers(request.form['num'])
     return render_template('BackStage.html', books=books, authors=authors, publishers=publishers)
 
 @app.route('/newbook', methods=['GET', 'POST'])

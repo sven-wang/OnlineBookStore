@@ -71,13 +71,15 @@ def login():
     if request.method == 'POST':
         if request.form['btn'] == 'Login':
             db = get_db()
-            user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
-                             % (request.form['login_name'], request.form['passwords']))
             print request.form['login_name']
             print ("\'" in request.form['login_name'])
+            # 过滤非法字符
             if "\'" in request.form['login_name']:
                 error = "no 1"
                 return render_template('HomePage.html', error=error)
+            user = db.readDB('select count(*) from Customers where login_name = \'%s\' and passwords = \'%s\''
+                             % (request.form['login_name'], request.form['passwords']))
+            # 没有此用户名
             if user[0][0] == 0L:
                 error = "Invalid"
             else:

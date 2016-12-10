@@ -69,6 +69,7 @@
             <td>Format</td>
             <td>Keywords</td>
             <td>Subject</td>
+            <td>Average Rating</td>
             <td></td>
         </thead>
         {% for entry in entries %}
@@ -83,6 +84,7 @@
             <td>{{ entry[7] }}</td>
             <td>{{ entry[8] }}</td>
             <td>{{ entry[9] }}</td>
+            <td>{{ entry[10] }}</td>
             <td><a href="{{ url_for('bookinfo', ISBN=entry[0]) }}"><b>View</b></a></td>
         </tr>
         {% endfor %}

@@ -82,12 +82,12 @@
                 <input type="hidden" name="fbn" value="{{ fb[0] }}">
                 <div class="16u 10u$(3)" style="text-align:left">
                     <p style="margin-bottom: 0em">Is it useful?
-                    <input type="radio" id="0" name="scores"  value="0" required>
-                    <label for="0">0</label>
-                    <input type="radio" id="1" name="scores" value="1" >
-                    <label for="1">1</label>
-                    <input type="radio" id="2" name="scores" value="2" >
-                    <label for="2">2</label>
+                    <input type="radio" id="0{{ fb[0] }}" name="scores"  value="0" required>
+                    <label for="0{{ fb[0] }}">0</label>
+                    <input type="radio" id="1{{ fb[0] }}" name="scores" value="1" >
+                    <label for="1{{ fb[0] }}">1</label>
+                    <input type="radio" id="2{{ fb[0] }}" name="scores" value="2" >
+                    <label for="2{{ fb[0] }}">2</label>
                     <input type="submit" name="btn" value="Rate!" style="margin-left: 1em">
                 </p></div>
             </form>

@@ -81,11 +81,14 @@ class dbOperation:
         queryOid = "SELECT MAX(oid) \
                     FROM Orders \
                     WHERE login_name = '" + login_name + "' AND status = 'Processing'"
+
+
         try:
             db = dbconnect.dbConnect()
-            oid = db.readDB(queryOid)
+            oid = db.readDB(queryOid)[0][0]
             items = db.readDB(query)
-            print 'items',items
+            print 'oid', oid
+
             return oid, items
         except Exception as ex:
             print ex.message
@@ -221,7 +224,7 @@ class dbOperation:
         title = title.strip()
         subject = subject.strip()
 
-        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)\
+        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, ROUND(AVG(score), 1)\
                   FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN"
 
         if (authors != ''):
@@ -295,7 +298,7 @@ class dbOperation:
 
     #Function 9: Useful feedbacks
     def feedBackRank(self, ISBN, n):
-        query = "SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks \
+        query = "SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, ROUND(AVG(usefulness),1), Feedbacks.date FROM Rate, Feedbacks \
                   WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = '" + ISBN + "' GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT " + str(n)
 
         try:

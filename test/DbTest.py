@@ -163,7 +163,7 @@ def cart():
     if request.method == 'POST':
         db.checkOut(request.form['oid'])
         return redirect(url_for('search'))
-    return render_template('Cart.html', orders=cart, orderid=orderid[0], error=error)
+    return render_template('Cart.html', orders=cart, orderid=orderid, error=error)
 
 @app.route('/manager', methods=['GET', 'POST'])
 def manager():

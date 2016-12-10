@@ -27,8 +27,8 @@
         <p>Welcome back,{{ session.username }}!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-    {% if orderid|length == 0 %}
-    <h3>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h3>
+    {% if orderid == None %}
+    <h3 style="margin-top: 10em">There is nothing in your cart! <a href="{{ url_for('search') }}">Go back</a></h3>
     {% else %}
     <h3 style="margin-top:6em">OrderID:{{ orderid[0] }}</h3>
 

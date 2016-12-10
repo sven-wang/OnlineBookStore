@@ -4,7 +4,7 @@ authors = "author"
 publisher = "pub"
 title = "jiuqi s life"
 subject = "sub"
-login_name = "firstUser"
+login_name = "siyuan"
 ISBN = "ISBN"
 dateTime = "12-12-1996"
 score = "4"
@@ -22,9 +22,8 @@ oid = '20160003'
 sortBy = 'year'
 Desc_Asc = 'd'
 
-query = "SELECT * " \
-                 "FROM Feedbacks f, Rate r " \
-                 "WHERE r.rater_name = " + "'" + login_name + "' AND r.feedback_name = f.login_name AND f.ISBN = r.ISBN AND r.rater_name <> r.feedback_name;"
-
+query = "SELECT MAX(oid) \
+                 FROM Orders \
+                 WHERE login_name = '" + login_name + "' AND status = 'Processing'"
 
 print query

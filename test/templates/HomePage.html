@@ -16,6 +16,7 @@
     <div style="text-align: right;">
         <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('manager') }}">Ahh...I'm a manager...</a></p>
     </div>
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
 </div>
 
   <!--{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}-->

@@ -71,8 +71,6 @@ def login():
     if request.method == 'POST':
         if request.form['btn'] == 'Login':
             db = get_db()
-            print request.form['login_name']
-            print ("\'" in request.form['login_name'])
             # 过滤非法字符
             if "\'" in request.form['login_name']:
                 error = "no \'"
@@ -127,10 +125,8 @@ def bookinfo(ISBN):
             if int(request.form['copies']) > int(info[0][5]):
                 error = "not enough copies"
                 return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
-            print session['username'], ISBN, request.form['copies']
             db.ordering(session['username'], ISBN, request.form['copies'])
-            print "success"
-            return redirect(url_for('bookinfo', ISBN=ISBN))
+            return redirect(url_for('recommendation', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
             return redirect(url_for('bookinfo', ISBN=ISBN))
@@ -197,3 +193,11 @@ def newbook():
         db.newBook(request.form['isbn'], request.form['title'], request.form['authors'], request.form['publisher'], request.form['year'], request.form['copies'], request.form['price'], request.form['format'], request.form['keywords'], request.form['subject'])
     return render_template('NewBook.html')
 
+@app.route('/recommendation?=<string:ISBN>')
+def recommendation(ISBN):
+    db = dbOperation.dbOperation()
+    rec=db.getRecommendation(ISBN, session['username'])
+    print rec
+    print rec[0]
+    print rec[0][0]
+    return render_template('Recommendation.html', rec=rec)

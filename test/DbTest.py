@@ -139,11 +139,11 @@ def bookinfo(ISBN):
             return redirect(url_for('bookinfo', ISBN=ISBN))
     return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
 
-@app.route('/user?=<string:USERNAME>')
-def userpage(USERNAME):
+@app.route('/user')
+def userpage():
     error = None
     db = dbOperation.dbOperation()
-    account_info, order_history, feedback_history, feedback_rate = db.userRecord(USERNAME)
+    account_info, order_history, feedback_history, feedback_rate = db.userRecord(session['username'])
     if order_history == None:
         order_history = []
     if feedback_history == None:

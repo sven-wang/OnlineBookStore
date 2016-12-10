@@ -1,15 +1,21 @@
 <!doctype html>
 <head>
 <title>BuyLah</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}"-->
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style type=text/css>
+    <!--style type=text/css>
     a{ text-decoration:none;}
-    </style>
+    </style-->
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/-->
+    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 <body>
-<div style="position:fixed;top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
+<header style="top:0;left:0;width:100%;display: inline-block;background-color:#EEEEEE;">
     <div style="margin:5px auto auto 5em;">
         <a href="{{ url_for('login') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
@@ -17,37 +23,71 @@
         <p style="text-align: right;margin-right:5em;"><a href="{{ url_for('manager') }}">Ahh...I'm a manager...</a></p>
     </div>
     {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-</div>
+</header>
 
   <!--{% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}-->
-<h1 style="margin:4em auto auto auto;text-align:center;">Welcome!</h1>
+<h2 style="text-align:center;">Welcome!</h2>
 <div style="margin:1em auto 9em auto;width:51em;height:30em;border:2px solid #808080;border-radius:15px;background-color:#EEEEEE;">
     <div style="float:left;width:25em;height:30em;border-right:3px solid #808080;">
         <div>
-            <h2 style="text-align:center;">Login</h2>
+            <h3 style="text-align:center;margin-top: 6em">Login</h3>
         </div>
-        <div style="text-indent:6em;margin-top:6em;">
+        <div style="align-items:center;margin-top: 2em;margin-left:10%; margin-right:10%;">
             <form action="{{ url_for('login') }}" method=post>
-                <dl>
+                <table>
+                    <tr class="12u$ 12u$(8) row uniform 50%" style="align-content: center">
+                        <input size="80" type="text" name="login_name" id="login_name" value="" placeholder="Username" required>
+                    </tr>
+                    <tr class="12u$ 12u$(4) row uniform 50%" style="align-content: center">
+                        <input size="80" type="text" name="passwords" id="passwords" value="" placeholder="Password" required>
+                    </tr>
+                    <tr style="align-content: center;">
+                        <input class="button" size="40" type="submit" name="btn" value="Login">
+                    </tr>
+                </table>
+                <!--dl>
                   <dt>Username:</dt>
-                  <dt><input type=text name=login_name required></dt>
+                  <dt><input size="80" type=text name=login_name required></dt>
                   <dt><br /></dt>
                   <dt><br /></dt>
                   <dt>Password:</dt>
                   <dt><input type=password name=passwords required></dt>
                   <dt><br /></dt>
                   <dt><input type=submit name=btn value=Login style="width:50px;height:50px;margin-left:15em"></dt>
-                </dl>
+                </dl-->
             </form>
         </div>
     </div>
     <div style="float:left;width:25em;height:30em">
         <div>
-            <h2 style="text-align:center;">Register</h2>
+            <h3 style="text-align:center;">Register</h3>
         </div>
-        <div style="text-indent:6em;">
+        <div style="text-indent:6em;margin-left: 10%;margin-right: 10%">
             <form action="{{ url_for('login') }}" method=post>
-                <dl >
+                <div class="row uniform 50%">
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="login_name" value="" placeholder="Username" required>
+                    </div>
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="full_name" value="" placeholder="Full name" required>
+                    </div>
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="passwords" value="" placeholder="Password" required>
+                    </div>
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="card_num" value="" placeholder="Card number" required>
+                    </div>
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="address" value="" placeholder="Address" required>
+                    </div>
+                    <div class="12u$ 12u$(8)" style="align-content: center">
+                        <input size="80" type="text" name="phone_num" value="" placeholder="Phone number" required>
+                    </div>
+                    <div style="align-content: center">
+                        <input class="button" size="40" type="submit" name="btn" value="Create">
+                    </div>
+                </div>
+                <!--dl >
                   <dt>Username</dt>
                   <dt><input type=text name=login_name required></dt>
                   <dt><br /></dt>
@@ -67,7 +107,7 @@
                   <dt><input type=text name=phone_num required></dt>
                   <dt><br /></dt>
                   <dt><input type=submit name=btn value=Create style="width:50px;height:50px;margin-left:15em;"></dt>
-                </dl>
+                </dl-->
             </form>
         </div>
     </div>

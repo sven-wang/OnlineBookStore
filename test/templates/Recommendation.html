@@ -26,13 +26,13 @@
 </div>
 <div style="margin-top:6em;">
     <h1>Well Done! This book has been added to your cart successfully!</h1>
-    <a href="{{ url_for('cart') }}" class="button">To my Cart!</a>
-    <a href="{{ url_for('search') }}" class="button">Buy More!</a>
+    <a href="{{ url_for('cart') }}" class="button">Go to my shopping cart!</a>
+    <a href="{{ url_for('search') }}" class="button">Buy more!</a>
 
 </div>
 <div style="margin-top:6em;">
     {% if rec|length == 0 %}
-    <h1 style="margin-top:8em;">No Reccomendations for you!</h1>
+    <h1 style="margin-top:8em;">No Recommendation for you!</h1>
     {% else %}
     <h1>Recommendations:</h1>
     <table border="1">

@@ -12,7 +12,7 @@ CREATE TABLE Books(
     authors VARCHAR(256),
     publisher VARCHAR(64),
     year INTEGER,
-    copies INTEGER,
+    copies INTEGER CHECK (copies >= 0),
     price FLOAT,
     format CHAR(9) CHECK(format = 'softcover' OR format='hardcover'),
     keywords VARCHAR(100),

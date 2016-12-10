@@ -91,17 +91,47 @@ class dbOperation:
 
     def checkOut(self, oid):
 
-        query = "UPDATE Orders " \
+        updateOrders = "UPDATE Orders " \
                 "SET status = 'Complete' , date = CURDATE() " + \
                 "WHERE oid = " + oid
+        try:
+            db = dbconnect.dbConnect()
+            db.updateDB(updateOrders)
+        except Exception as ex:
+            print ex.message
+
+        print '1'
+
+        queryOrders = "select ISBN, copies from Items where oid = " + oid;
+
+        print '2'
+
 
 
         try:
             db = dbconnect.dbConnect()
-            db.updateDB(query)
-            print 'checkout'
+            orders = db.readDB(queryOrders)
+            print '3'
+            for item in orders:
+                ISBN = item[0]
+                copies = item[1]
+                print '4'
+                updateBook = "UPDATE Books " \
+                             "SET copies = copies - " + str(copies) + \
+                             " WHERE ISBN = '" + str(ISBN) + "';"
+
+                try:
+                    db = dbconnect.dbConnect()
+                    db.updateDB(updateBook)
+                    print 'updated',ISBN
+                except Exception as ex:
+                    print ex.message
+
         except Exception as ex:
             print ex.message
+
+
+
 
 
     #Function 3: User Record
@@ -153,7 +183,7 @@ class dbOperation:
     def newArrival(self, ISBN, copies):
         query = "UPDATE Books " \
                 "SET copies = copies + "+copies+ \
-                "WHERE ISBN = '"+ISBN+"';"
+                " WHERE ISBN = '"+ISBN+"';"
         try:
             db = dbconnect.dbConnect()
             db.updateDB(query)
@@ -313,17 +343,21 @@ class dbOperation:
         year = datetime.date.today().year
         month = datetime.date.today().month
 
-        query = "SELECT ISBN, SUM(copies) \
+        query = "SELECT info.ISBN, Books.title, SUM(info.copies) \
                     FROM (SELECT ISBN, copies \
                           FROM Orders JOIN Items on Orders.oid = Items.oid \
-                          WHERE  MONTH(date) = " + str(month) + " AND YEAR(date) = " + str(year) + " AND status = 'Complete') info \
+                          WHERE  MONTH(date) = " + str(month) + " AND YEAR(date) = " + str(year) + " AND status = 'Complete') info, Books \
+                    WHERE info.ISBN = Books.ISBN \
                     GROUP BY ISBN \
-                    ORDER BY SUM(copies) DESC \
+                    ORDER BY SUM(info.copies) DESC \
                     LIMIT " + str(m)
+
+        print 'popular books!'
 
         try:
             db = dbconnect.dbConnect()
             results = db.readDB(query)
+            print results
             return results
         except Exception as ex:
             print ex.message

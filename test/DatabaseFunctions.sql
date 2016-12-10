@@ -92,18 +92,18 @@ WHERE ISBN = "ISBN";
 
 
 
-## 6) Feedback recordings
+## 6) Feedback recordings # Todo
 INSERT INTO Feedbacks
 VALUES (login_name, ISBN, date, score, text) ;
 
 INSERT INTO Rate
 VALUES (feedback_name, feedback_name, ISBN, 0)
 
-## 7) Usefulness ratings
+## 7) Usefulness ratings # Todo
 INSERT INTO Feedbacks
 VALUES (rater_name, feedback_name, ISBN, usefulness);
 
-## 8) Book Browsing
+## 8) Book Browsing # ToDo
 SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)
 FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN
 WHERE LOWER(authors) LIKE LOWER("%author%") AND
@@ -123,9 +123,13 @@ ORDER BY score Desc
 
 
 ## 9) Useful feedbacks
-SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, AVG(usefulness), Feedbacks.date FROM Rate, Feedbacks
-WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = '9781449389673'
-GROUP BY Rate.feedback_name ORDER BY AVG(Rate.usefulness) DESC LIMIT 5;
+SELECT Rate.feedback_name, Feedbacks.text, Feedbacks.score, ROUND(AVG(usefulness),1), Feedbacks.date
+FROM Rate, Feedbacks
+WHERE Rate.feedback_name = Feedbacks.login_name AND Feedbacks.ISBN = Rate.ISBN AND Rate.ISBN = "ISBN"
+GROUP BY Rate.feedback_name
+ORDER BY AVG(Rate.usefulness)
+DESC LIMIT n;
+
 
 
 ## 10) Book recommendation
@@ -137,16 +141,15 @@ WHERE Orders.oid = Items.oid
                                FROM Orders, Items
                                WHERE Orders.oid = Items.oid
                                      AND ISBN = 'ISBN') C, Orders O, Items I
-                         WHERE c.login_name = o.login_name
-                               AND O.oid = I.oid)
+                         WHERE c.login_name = o.login_name AND O.oid = I.oid)
       AND Orders.login_name in (SELECT distinct login_name
                                 FROM Orders, Items
                                 WHERE Orders.oid = Items.oid
                                       AND ISBN = 'ISBN')
-      AND Items.ISBN not in (SELECT  ISBN
-                             FROM Orders, Items
-                             WHERE Orders.oid = Items.oid
-                                   AND login_name = '1')
+      AND Items.ISBN not in (SELECT ISBN
+        	             			 FROM Orders, Items
+        	               		 WHERE Orders.oid = Items.oid
+                                   AND login_name = 'login_name')
       AND Items.ISBN = Books.ISBN
 GROUP BY Items.ISBN
 ORDER BY sum(copies) DESC;
@@ -167,7 +170,7 @@ FROM (SELECT ISBN, copies
 WHERE info.ISBN = Books.ISBN
 GROUP BY ISBN
 ORDER BY SUM(info.copies) DESC
-LIMIT 3;
+LIMIT m;
 
 
 #the list of m most popular authors
@@ -175,21 +178,21 @@ SELECT authors, SUM(sale)
 FROM (SELECT ISBN, SUM(copies) sale
 	    FROM (SELECT ISBN, copies
 	  		    FROM Orders o, Items i
-	  		    WHERE o.oid = i.oid AND MONTH(date) = "month" AND YEAR(date) = "year" AND status = 'Complete') info
+	  		    WHERE o.oid = i.oid AND MONTH(date) = 'month' AND YEAR(date) = 'year' AND status = 'Complete') info
 	    GROUP BY ISBN) sales, Books
 WHERE sales.ISBN = Books.ISBN
 GROUP BY authors
 ORDER BY SUM(sale) DESC
-LIMIT m
+LIMIT m;
 
 #the list of m most popular publisher
 SELECT publisher, SUM(sale)
 FROM (SELECT ISBN, SUM(copies) sale
-	    FROM (SELECT *
-	  		    FROM Orders o, Items i
-	  		    WHERE o.oid = i.oid AND MONTH(date) = "month" AND YEAR(date) = "year" AND status = 'Complete') info
-	    GROUP BY ISBN) sales, Books
+      FROM (SELECT ISBN, copies
+            FROM Orders o, Items i
+            WHERE o.oid = i.oid AND MONTH(date) = 'month' AND YEAR(date) = 'year' AND status = 'Complete') info
+      GROUP BY ISBN) sales, Books
 WHERE sales.ISBN = Books.ISBN
 GROUP BY publisher
 ORDER BY SUM(sale) DESC
-LIMIT m
+LIMIT m;

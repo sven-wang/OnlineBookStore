@@ -1,0 +1,18 @@
+.center{
+    text-align:center;
+}
+
+div{
+	margin: 0px;
+	padding: 0px;
+	text-align: justify;
+}
+
+p{
+    text-indent: 2em;
+    display: block;
+    line-height: 1.3em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    text-align: left;
+}

@@ -92,18 +92,18 @@ WHERE ISBN = "ISBN";
 
 
 
-## 6) Feedback recordings # Todo
+## 6) Feedback recordings
 INSERT INTO Feedbacks
-VALUES (login_name, ISBN, date, score, text) ;
+VALUES ('login_name', 'ISBN', CURDATE(), 'score', 'text') ;
 
 INSERT INTO Rate
-VALUES (feedback_name, feedback_name, ISBN, 0)
+VALUES ('feedback_name', 'feedback_name', 'ISBN', 0);
 
-## 7) Usefulness ratings # Todo
+## 7) Usefulness ratings
 INSERT INTO Feedbacks
-VALUES (rater_name, feedback_name, ISBN, usefulness);
+VALUES ('rater_name', 'feedback_name', 'ISBN', 'usefulness');
 
-## 8) Book Browsing # ToDo
+## 8) Book Browsing
 SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)
 FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN
 WHERE LOWER(authors) LIKE LOWER("%author%") AND
@@ -111,15 +111,9 @@ WHERE LOWER(authors) LIKE LOWER("%author%") AND
       LOWER(title) LIKE LOWER("%title%") AND
       LOWER(subject) LIKE LOWER("%subject%")
 GROUP BY Books.ISBN
-#ORDER BY year DESC
+ORDER BY year DESC
+  OR
 ORDER BY AVG(score) DESC;
-
-
-SELECT Books.ISBN, title, authors, publisher, year, copies, price, format,keywords, subject, AVG(score)
-FROM Books left join Feedbacks on Books.ISBN = Feedbacks.ISBN
-GROUP BY Books.ISBN
-ORDER BY score Desc
-
 
 
 ## 9) Useful feedbacks

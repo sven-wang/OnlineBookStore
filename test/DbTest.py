@@ -115,7 +115,7 @@ def bookinfo(ISBN):
         feedback = []
     if request.method == 'POST':
         if request.form['btn'] == 'Add to Cart!':
-            db.ordering(session['username'], ISBN)
+            db.ordering(session['username'], ISBN) 
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])

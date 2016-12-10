@@ -59,16 +59,22 @@ class dbOperation:
             print ex.message
 
     def viewCart(self, login_name):
-        query = "SELECT Books.ISBN, title, authors, publisher, year, Books.copies, price, format, subject, info.copies \
-                  FROM (SELECT ISBN, copies \
-                        FROM (SELECT MAX(oid) \
-                              FROM Orders \
-                              WHERE login_name = '" + login_name + "' AND status = 'Processing') o, Items i \
-                        WHERE o.oid = i. oid) info, Books \
-                  WHERE info.ISBN = Books.ISBN"
+        query = "SELECT Books.ISBN, title, authors, publisher, year, price, format, subject, info.copies \
+                    FROM (SELECT ISBN, copies \
+                    FROM Items i \
+                    WHERE i. oid = (SELECT MAX(oid) \
+                    FROM Orders \
+                    WHERE login_name = " + login_name + " AND status = 'Processing')) info, Books \
+                    WHERE info.ISBN = Books.ISBN"
+
+        queryOid = "SELECT MAX(oid) \
+                    FROM Orders \
+                    WHERE login_name = " + login_name + " AND status = 'Processing'"
         try:
             db = dbconnect.dbConnect()
-            return db.readDB(query)
+            oid = db.readDB(queryOid)
+            items = db.readDB(query)
+            return oid, items
         except Exception as ex:
             print ex.message
 
@@ -77,7 +83,7 @@ class dbOperation:
 
         query = "UPDATE Orders " \
                 "SET status = 'Complete' AND date = CURDATE()"  + \
-                "WHERE oid = " + str(oid) + ";"
+                "WHERE oid = " + oid + ";"
         try:
             db = dbconnect.dbConnect()
             db.updateDB(query)

@@ -23,7 +23,7 @@ class dbOperation:
         except Exception as ex:
             print ex.message
 
-    def ordering(self, login_name, ISBN):
+    def ordering(self, login_name, ISBN, copies):
         # check curent order status
         query1 = "SELECT status " \
                  "FROM (SELECT status, oid " \
@@ -48,13 +48,13 @@ class dbOperation:
                 # insert a new order
                 db.insertDB("INSERT INTO Orders(" + oid + ", '" + login_name + "', CURDATE(), 'Processing')")
                 # insert a new item under this oid
-                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', copies)")
+                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', " + copies + ")")
 
             if status == 'Processing':
                 # get user's current max id
                 oid = db.readDB(query3)
                 # insert new item
-                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', copies)")
+                db.insertDB("INSERT INTO Items(" + oid + ", '" + ISBN + "', " + copies + ")")
         except Exception as ex:
             print ex.message
 

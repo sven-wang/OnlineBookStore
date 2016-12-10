@@ -13,23 +13,23 @@ ORDER BY oid Desc
 LIMIT 1;
 
 # if status == 'Completed'
-  # get max oid
-  SELECT MAX(oid)
-  FROM Orders
-  # allocate new oid & get current date
-  oid = oid + 1
-  # insert a new order
-  INSERT INTO Orders(oid, "login_name", date, "Processing")
-  # insert a new item
-  INSERT INTO Items(oid, "ISBN", copies)
+# get max oid
+SELECT MAX(oid)
+FROM Orders
+# allocate new oid & get current date
+oid = oid + 1
+# insert a new order
+INSERT INTO Orders(oid, "login_name", date, "Processing")
+# insert a new item
+INSERT INTO Items(oid, "ISBN", copies);
 
 # if status == 'Processing'
-  # get current oid
-  SELECT MAX(oid)
-  FROM Orders
-  WHERE login_name = "login_name"
-  # insert new item under current oid
-  INSERT INTO Items VALUES (oid, "ISBN", copies)
+# get current oid
+SELECT MAX(oid)
+FROM Orders
+WHERE login_name = "login_name";
+# insert new item under current oid
+INSERT INTO Items VALUES (oid, "ISBN", copies);
 
 #ViewCart Function
 SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies
@@ -38,7 +38,19 @@ FROM (SELECT ISBN, copies
             FROM Orders
             WHERE login_name = "login_name" AND status = 'Processing') o, Items i
       WHERE o.oid = i. oid) info, Books
-WHERE info.ISBN = Books.ISBN
+WHERE info.ISBN = Books.ISBN;
+
+# Checkout function
+## update order status
+UPDATE Orders
+SET status = 'Complete', date = CURDATE()
+WHERE oid = oidLong;
+## queryOrders
+select ISBN, copies from Items where oid = oidLong;
+## updateBookCopies: for item in orders
+UPDATE Books
+SET copies = copies - 'copiesINT'
+WHERE ISBN = 'ISBNchar';
 
 
 ## 3) User record
@@ -57,12 +69,16 @@ WHERE info.ISBN = Books.ISBN;
 # his/her full history of feedbacks
 SELECT *
 FROM Feedbacks
-WHERE login_name = "login_name"
+WHERE login_name = "login_name";
 
-# the list of all the feedbacks he/she ranked with respect to usefulness
+# the list of all the feedbacks he/she rated
 SELECT *
-FROM Feedback f, Rate r
-WHERE r.login_name = "login_name" AND f.fid = r.fid
+FROM Feedbacks f, Rate r
+WHERE r.rater_name = 'login_name'
+      AND r.feedback_name = f.login_name
+      AND f.ISBN = r.ISBN
+      AND r.rater_name <> r.feedback_name;
+
 
 ## 4) New book
 INSERT INTO Books
@@ -71,8 +87,10 @@ VALUES (ISBN, title, authors, publisher, year, copies, price, format, keywords, 
 
 ## 5) Arrival of more copies
 UPDATE Books
-SET copies = copies + (new copies)
-WHERE ISBN = "ISBN"
+SET copies = copies + 'newCopiesINT'
+WHERE ISBN = "ISBN";
+
+
 
 ## 6) Feedback recordings
 INSERT INTO Feedbacks

@@ -34,9 +34,15 @@
         <p>No records!</p>
         {% else %}
         <table border="1" style="text-align:center;">
-            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            <tr>
+                <td>ISBN</td>
+                <td>Sales</td>
+            </tr>
             {% for b in books %}
-            <tr><td>{{ b[0] }}</td><td>{{ b[1] }}</td><td>{{ b[2] }}</td></tr>
+            <tr>
+                <td><a href="{{ url_for('bookinfo', ISBN=b[0]) }}">{{ b[0] }}</a></td>
+                <td>{{ b[1] }}</td>
+            </tr>
             {% endfor %}
         </table>
         {% endif %}
@@ -46,9 +52,15 @@
         <p>No records!</p>
         {% else %}
         <table border="1" style="text-align:center;">
-            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            <tr>
+                <td>Author</td>
+                <td>Sales</td>
+            </tr>
             {% for a in authors %}
-            <tr><td>{{ a[0] }}</td><td>{{ a[1] }}</td><td>{{ a[2] }}</td></tr>
+            <tr>
+                <td>{{ a[0] }}</td>
+                <td>{{ a[1] }}</td>
+            </tr>
             {% endfor %}
         </table>
         {% endif %}
@@ -58,9 +70,15 @@
         <p>No records!</p>
         {% else %}
         <table border="1" style="text-align:center;">
-            <tr><td>entry[0]</td><td>entry[1]</td><td>entry[2]</td></tr>
+            <tr>
+                <td>Publisher</td>
+                <td>Sales</td>
+            </tr>
             {% for p in publishers %}
-            <tr><td>{{ p[0] }}</td><td>{{ p[1] }}</td><td>{{ p[2] }}</td></tr>
+            <tr>
+                <td>{{ p[0] }}</td>
+                <td>{{ p[1] }}</td>
+            </tr>
             {% endfor %}
         </table>
         {% endif %}

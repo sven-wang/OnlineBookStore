@@ -1,15 +1,21 @@
 <!doctype html>
 <head>
 <title>ELah</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
+<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}"-->
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <style type=text/css>
+    <!--style type=text/css>
     a{ text-decoration:none;}
-    </style>
+    </style-->
+    <!--link rel="stylesheet" href="{{ url_for('static', filename='ske1.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-xlarge.css') }}" type="text/css"/-->
+    <link rel="stylesheet" href="css/skel.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style-xlarge.css" type="text/css"/>
 </head>
 
 <body>
-<h1>ERROR</h1>
-<p> Press <a href="{{ url_for('login') }}">here</a> to return to home page! </p>
+<h2>ERROR</h2>
+<p> Press <a href="{{ url_for('login') }}"><u>here</u></a> to return to home page! </p>
 </body>

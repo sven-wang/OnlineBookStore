@@ -59,13 +59,13 @@ class dbOperation:
             print ex.message
 
     def viewCart(self, login_name):
-        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies \
-                  FROM (SELECT ISBN, copies \
-                        FROM (SELECT MAX(oid) \
-                              FROM Orders \
-                              WHERE login_name = '" + login_name + "' AND status = 'Processing') o, Items i \
-                        WHERE o.oid = i. oid) info, Books \
-                  WHERE info.ISBN = Books.ISBN"
+        query = "SELECT Books.ISBN, title, authors, publisher, year, price, format, subject, info.copies \
+                    FROM (SELECT ISBN, copies \
+                    FROM Items i \
+                    WHERE i. oid = (SELECT MAX(oid) \
+                    FROM Orders \
+                    WHERE login_name = " + login_name + " AND status = 'Processing')) info, Books \
+                    WHERE info.ISBN = Books.ISBN"
         try:
             db = dbconnect.dbConnect()
             return db.readDB(query)
@@ -122,6 +122,7 @@ class dbOperation:
         query = "INSERT INTO Books " \
                 "VALUES ('"+ISBN+"', '"+title+"', '"+authors+"', '"+publisher+"', "+year+", "+copies+", " \
                 +price+", '"+format+"', '"+keywords+"', '"+subject+"');"
+        print query
         try:
             db = dbconnect.dbConnect()
             db.insertDB(query)

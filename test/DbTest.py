@@ -152,8 +152,8 @@ def userpage(USERNAME):
 @app.route('/cart')
 def cart():
     db = dbOperation.dbOperation()
-    db.viewCart(session['username'])
-    return render_template('Cart.html')
+    orderid, cart = db.viewCart(session['username'])
+    return render_template('Cart.html', orders=cart, orderid=orderid)
 
 @app.route('/manager', methods=['GET', 'POST'])
 def manager():

@@ -59,7 +59,7 @@ class dbOperation:
             print ex.message
 
     def viewCart(self, login_name):
-        query = "SELECT Books.ISBN, title, authors, publisher, year, copies, price, format, subject, copies \
+        query = "SELECT Books.ISBN, title, authors, publisher, year, Books.copies, price, format, subject, info.copies \
                   FROM (SELECT ISBN, copies \
                         FROM (SELECT MAX(oid) \
                               FROM Orders \

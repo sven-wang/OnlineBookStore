@@ -115,7 +115,7 @@ def bookinfo(ISBN):
         feedback = []
     if request.method == 'POST':
         if request.form['btn'] == 'Add to Cart!':
-            pass
+            db.ordering(session['username'], ISBN)
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':
             db.feedBack(session['username'], ISBN,  request.form['score'] ,request.form['feedback'])
@@ -139,7 +139,8 @@ def userpage(USERNAME):
 
 @app.route('/cart')
 def cart():
-
+    db = dbOperation.dbOperation()
+    db.viewCart(session['username'])
     return render_template('Cart.html')
 
 @app.route('/manager', methods=['GET', 'POST'])

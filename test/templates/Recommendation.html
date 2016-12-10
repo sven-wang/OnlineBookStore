@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-<title>InfoLah</title>
+<title>RecoLah</title>
 <!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='newstyle.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
@@ -21,30 +21,29 @@
         <a href="{{ url_for('search') }}"><img src="{{ url_for('static', filename='logo.jpg') }}" alt="logo" align="left" height="40"></a>
     </div>
     <div style="text-align: right;">
-        <p>Welcome back,<b>{{ session.username }}</b>!　|　<a href="{{  url_for('userpage', USERNAME=session.username )  }}">My account</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
+        <p style="text-align:right;margin-right:5em;">Welcome back,{{ session.username }}!　|　<a href="{{ url_for('userpage') }}">My account</a>　|　<a href="{{  url_for('cart' )  }}">Cart</a>　|　<a href="{{ url_for('logout') }}">log out</a></p>
     </div>
 </div>
-    {% if orderid|length == 0 %}
-    <h3>There is nothing in your cart! <a href="{{ url_for('search') }}">Press me</a></h3>
-    {% else %}
-    <h3 style="margin-top:6em">OrderID:{{ orderid[0] }}</h3>
+<div style="margin-top:6em;">
+    <h1>Well Done! This book has been added to your cart successfully!</h1>
+    <a href="{{ url_for('cart') }}" class="button">To my Cart!</a>
+    <a href="{{ url_for('search') }}" class="button">Buy More!</a>
 
-    <div class="table-wrapper">
-        <table>
-            <thead><tr><td>ISBN</td><td>sth</td><td>other</td></tr></thead>
-            <tbody>
-            {% for o in orders %}
-            <tr><td><a href="{{ url_for('bookinfo', ISBN=o[0]) }}">{{ o[0] }}</a></td><td>{{ o[1] }}</td><td>{{ o[2] }}</td></tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-<div>
-    <form action="{{ url_for('cart') }}" method="post" class="button">
-        <input type="hidden" name="oid" value="{{ orderid[0] }}">
-        <input type="submit" name="btn" value="Place my order">
-    </form>
 </div>
-    {% endif %}
+<div style="margin-top:6em;">
+    <h1>Recommendations:</h1>
+    <table border="1">
+        <tr>
+            <td>ISBN</td>
+            <td>Sales</td>
+        </tr>
+    {% for r in rec %}
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
 {% endif %}
 </body>

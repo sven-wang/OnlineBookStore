@@ -127,6 +127,9 @@ def bookinfo(ISBN):
             if int(request.form['copies']) > int(info[0][5]):
                 error = "not enough copies"
                 return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
+            elif int(request.form['copies']) <= 0:
+                error = "Please enter an integer greater than 0"
+                return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
             db.ordering(session['username'], ISBN, request.form['copies'])
             return redirect(url_for('recommendation', ISBN=ISBN))
         elif request.form['btn'] == 'Submit':

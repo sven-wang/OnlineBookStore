@@ -87,11 +87,18 @@ def login():
                 flash('You were logged in. BuyLah！')
                 return redirect(url_for('search'))
         elif request.form['btn'] == 'Create':
-            # print 123456789
-            db = dbOperation.dbOperation()
-            db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
-            # message = 'Create Successfully'
-            return redirect(url_for('login'))
+            db = get_db()
+            duplicated = db.readDB('select count(*) from Customers where login_name = \'%s\' or card_num = \'%s\''
+                             % (request.form['login_name'], request.form['card_num']))
+            print duplicated
+            if duplicated[0][0] == 0L:
+                db = dbOperation.dbOperation()
+                db.registration(request.form['login_name'], request.form['full_name'], request.form['passwords'], request.form['card_num'], request.form['address'], request.form['phone_num'])
+                # message = 'Create Successfully'
+                return redirect(url_for('login'))
+            else:
+                error = "Duplicated Login name or card number! Please pick up another one and try again!"
+                return render_template('HomePage.html', error=error)
         else:
             return render_template('error.html')
     return render_template('HomePage.html', error=error)

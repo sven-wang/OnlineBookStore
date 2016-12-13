@@ -109,7 +109,7 @@ def search():
     if request.method == 'POST':
         db = dbOperation.dbOperation()
         entries = db.search(request.form['author'], request.form['publisher'], request.form['title'], request.form['subject'], request.form['order'], request.form['sequence'])
-        print entries
+        # print entries
 
     return render_template('Search.html', entries=entries)
 
@@ -144,7 +144,7 @@ def bookinfo(ISBN):
             return redirect(url_for('bookinfo', ISBN=ISBN))
         elif request.form['btn'] == 'Rate!':
             if session['username'] == request.form['fbn']:
-                error = "You can't rate for feedbacks rated by yourself!"
+                error = "You can't rate for feedback created by yourself!"
                 return render_template('BookInfo.html', BookInfo=info[0], FeedBack=feedback, error=error)
             db.rate(session['username'], request.form['fbn'], request.form['ISBN'], request.form['scores'])
             return redirect(url_for('bookinfo', ISBN=ISBN))

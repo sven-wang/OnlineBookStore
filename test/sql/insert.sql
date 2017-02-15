@@ -95,5 +95,4 @@ insert into Items values (20160002,'9780393072228',2);
 insert into Items values (20160004,'9780393072228',1);
 
 
-insert into Rate values ('iPhone','Alien','9781449389673',0);
 
